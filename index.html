@@ -476,12 +476,12 @@
       }
     }
 
-    /* ── MOBILE PORTRAIT: names stay on ONE LINE, no breaking ── */
+    /* ── MOBILE PORTRAIT: names stay on ONE LINE, boxes moved HIGHER ── */
     @media (max-width: 680px) {
       .wrap {
-        padding: 4rem 1rem 1.8rem;
-        align-items: center;
-        justify-content: center;
+        padding: 5rem 1rem 1.8rem;  /* increased top padding to shift boxes up, away from bottom player */
+        align-items: flex-start;     /* align closer to top */
+        justify-content: flex-start;
       }
 
       .row {
@@ -525,7 +525,7 @@
         object-fit: cover !important;
       }
 
-      /* 🔥 FIX: never break names, always single line */
+      /* names always single line, never break */
       .avatar-name {
         white-space: nowrap !important;
         overflow: visible !important;
@@ -747,12 +747,12 @@
     // Helper: format time
     function fmt(s) { if (!isFinite(s)) return '—'; return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`; }
     
-    // ---------- DESKTOP POPUP POSITIONING (restored) ----------
+    // ---------- DESKTOP POPUP POSITIONING ----------
     function isMobile() { return window.innerWidth <= 680; }
     function isLandscapeMobile() { return window.innerHeight <= 500 && window.innerWidth > window.innerHeight; }
     
     function positionPopup(popupEl, avatarEl) {
-      if (isMobile() || isLandscapeMobile()) return; // mobile uses bottom sheet or centered, no manual
+      if (isMobile() || isLandscapeMobile()) return;
       const rect = avatarEl.getBoundingClientRect();
       const pw = popupEl.offsetWidth || 260;
       let left = rect.left + rect.width / 2 - pw / 2;
@@ -796,7 +796,7 @@
       });
     }
     
-    // Initialize each player: volume, progress, play/pause, popup toggle, positioning
+    // Initialize each player
     playersData.forEach((data, idx) => {
       const audio = audios[idx];
       const popup = popups[idx];
@@ -835,11 +835,10 @@
         track.addEventListener('click', e => { const rect = track.getBoundingClientRect(); audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration; });
       }
       
-      // Popup toggle with auto-positioning on desktop
+      // Popup toggle with desktop positioning
       if (avatar && popup) {
         avatar.addEventListener('click', (e) => {
           e.stopPropagation();
-          // Close any other open popup
           for (let i = 0; i < popups.length; i++) {
             if (i !== idx && popupStates[i]) {
               popups[i].classList.remove('visible');
@@ -853,9 +852,8 @@
             popupStates[idx] = false;
           } else {
             popup.classList.remove('hidden');
-            // position before making visible
             if (!isMobile() && !isLandscapeMobile()) positionPopup(popup, avatar);
-            popup.getBoundingClientRect(); // force reflow
+            popup.getBoundingClientRect();
             popup.classList.add('visible');
             popupStates[idx] = true;
           }
@@ -863,7 +861,7 @@
       }
     });
     
-    // Global click to close popups when clicking outside
+    // Global click to close popups
     document.addEventListener('click', (e) => {
       for (let i = 0; i < popups.length; i++) {
         const pop = popups[i];
@@ -874,26 +872,21 @@
         }
       }
     });
-    // Prevent popup click from bubbling to document
     popups.forEach(pop => { if (pop) pop.addEventListener('click', e => e.stopPropagation()); });
     
-    // Reposition popups on window resize (desktop only)
+    // Reposition popups on resize (desktop)
     window.addEventListener('resize', () => {
       if (!isMobile() && !isLandscapeMobile()) {
         for (let i = 0; i < popups.length; i++) {
-          if (popupStates[i]) {
-            positionPopup(popups[i], avatars[i]);
-          }
+          if (popupStates[i]) positionPopup(popups[i], avatars[i]);
         }
       }
     });
-    
-    // Also call position for currently open after any layout shift (tiny safety)
     window.addEventListener('orientationchange', () => {
       setTimeout(() => {
-        for (let i = 0; i < popups.length; i++) {
-          if (popupStates[i] && !isMobile() && !isLandscapeMobile()) {
-            positionPopup(popups[i], avatars[i]);
+        if (!isMobile() && !isLandscapeMobile()) {
+          for (let i = 0; i < popups.length; i++) {
+            if (popupStates[i]) positionPopup(popups[i], avatars[i]);
           }
         }
       }, 100);
