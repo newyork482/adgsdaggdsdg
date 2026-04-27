@@ -731,22 +731,34 @@
     bgVid.setAttribute('webkit-playsinline', '');
     bgVid.muted = true;
     bgVid.controls = false;
-    function tryPlayVid() { bgVid.muted = true; const p = bgVid.play(); if (p !== undefined) p.catch(() => {}); }
+    function tryPlayVid() {
+      bgVid.muted = true;
+      const p = bgVid.play();
+      if (p !== undefined) p.catch(() => {
+        // iOS blocked autoplay — wait for touch
+      });
+    }
     bgVid.load(); tryPlayVid();
-    document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
-    document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
+
+    function resumeVideo() {
+      if (bgVid.paused) {
+        bgVid.muted = true;
+        bgVid.load();
+        bgVid.play().catch(() => {});
+      }
+    }
+
     function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4'; bgVid.load(); tryPlayVid(); }
     bgVid.addEventListener('error', tryFallback, { once: true });
+
     document.addEventListener('visibilitychange', () => {
-      if (!document.hidden) {
-        setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200);
-      }
+      if (!document.hidden) setTimeout(resumeVideo, 300);
     });
-    window.addEventListener('pageshow', () => { setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200); });
-    window.addEventListener('focus', () => { setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200); });
-    document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); });
-    document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); });
-    setInterval(() => { if (!document.hidden && bgVid.paused) tryPlayVid(); }, 1000);
+    window.addEventListener('pageshow', () => setTimeout(resumeVideo, 300));
+    window.addEventListener('focus', () => setTimeout(resumeVideo, 300));
+    document.addEventListener('touchstart', resumeVideo);
+    document.addEventListener('touchend', resumeVideo);
+    document.addEventListener('click', resumeVideo);
     
 
 
