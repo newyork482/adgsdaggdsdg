@@ -479,8 +479,8 @@
     /* ── MOBILE PORTRAIT: names stay on ONE LINE, boxes moved HIGHER ── */
     @media (max-width: 680px) {
       .wrap {
-        padding: 5rem 1rem 1.8rem;
-        align-items: flex-start;
+        padding: 5rem 1rem 1.8rem;  /* increased top padding to shift boxes up, away from bottom player */
+        align-items: flex-start;     /* align closer to top */
         justify-content: flex-start;
       }
 
@@ -660,22 +660,6 @@
     }
   </style>
   <script>
-    // Redirect to landing page on refresh or direct visit
-    (function() {
-      // Check if this is a reload (refresh)
-      const navEntry = performance.getEntriesByType('navigation')[0];
-      if (navEntry && navEntry.type === 'reload') {
-        window.location.href = '/';
-        return;
-      }
-      // Check if there's no referrer (direct URL visit) or referrer is the same page
-      if (document.referrer === '' || document.referrer === window.location.href) {
-        window.location.href = '/';
-        return;
-      }
-    })();
-
-    // Disable right-click and devtools shortcuts
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'F12') { e.preventDefault(); return; }
@@ -698,7 +682,7 @@
   <canvas id="c"></canvas>
 
   <!-- UI chrome -->
-  <a class="back-link" id="backLink" href="https://igotyou.lol">back</a>
+  <a class="back-link" id="backLink" href="#">back</a>
   <div class="title">who</div>
   <div class="branding">rapture®</div>
 
@@ -757,6 +741,9 @@
     function animateRain() { ctx.clearRect(0, 0, W, H); streaks.forEach(s => { ctx.save(); ctx.globalAlpha = s.alpha; ctx.strokeStyle = 'rgba(220,190,140,1)'; ctx.lineWidth = s.width; ctx.lineCap = 'round'; ctx.beginPath(); ctx.moveTo(s.x, s.y); ctx.lineTo(s.x - s.len * 0.12, s.y + s.len); ctx.stroke(); ctx.restore(); s.y += s.speed; s.x -= s.speed * 0.12; if (s.y - s.len > H || s.x < -60) Object.assign(s, newStreak(false)); }); requestAnimationFrame(animateRain); }
     animateRain();
 
+    // Back link
+    document.getElementById('backLink').addEventListener('click', (e) => { e.preventDefault(); document.body.classList.add('fading'); setTimeout(() => { window.location.href = 'https://igotyou.lol'; }, 560); });
+    
     // Helper: format time
     function fmt(s) { if (!isFinite(s)) return '—'; return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`; }
     
