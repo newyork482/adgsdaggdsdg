@@ -261,7 +261,7 @@
       color: rgba(150,180,220,0.5);
       text-align: center;
       text-transform: lowercase;
-      user-select: text;
+      user-select: none;
       width: 100%;
       max-width: 100%;
       overflow: hidden;
@@ -656,9 +656,12 @@
     }
   </style>
   <script>
-    // history.replaceState disabled for iframe compatibility
-
-    // Redirect logic disabled for iframe/preview compatibility
+    history.replaceState(null, '', '/');
+    (function() {
+      const navEntry = performance.getEntriesByType?.('navigation')[0];
+      if (navEntry && navEntry.type === 'reload') { window.location.href = '/'; return; }
+      if (document.referrer === '' && window.location.pathname !== '/') { window.location.href = '/'; }
+    })();
 
     // Disable right-click and devtools shortcuts
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
