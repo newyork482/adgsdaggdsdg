@@ -737,8 +737,16 @@
     document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
     function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4'; bgVid.load(); tryPlayVid(); }
     bgVid.addEventListener('error', tryFallback, { once: true });
-    document.addEventListener('visibilitychange', () => { if (!document.hidden && bgVid.paused) tryPlayVid(); });
-    window.addEventListener('pageshow', () => { if (bgVid.paused) tryPlayVid(); });
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) {
+        setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200);
+      }
+    });
+    window.addEventListener('pageshow', () => { setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200); });
+    window.addEventListener('focus', () => { setTimeout(() => { if (bgVid.paused) tryPlayVid(); }, 200); });
+    document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); });
+    document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); });
+    setInterval(() => { if (!document.hidden && bgVid.paused) tryPlayVid(); }, 1000);
     
 
 
