@@ -12,7 +12,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #050a12;
+      background: #020408;
     }
 
     body {
@@ -28,7 +28,7 @@
       transition: opacity 0.55s ease;
     }
 
-    /* ── video background (more exposure, lighter overlay) ── */
+    /* ── video background ── */
     .vid-bg {
       position: fixed;
       inset: 0;
@@ -46,9 +46,11 @@
       min-width: 100%;
       min-height: 100%;
       object-fit: cover;
-      object-position: center;
-      filter: brightness(0.92) contrast(1.05) saturate(1.1);
+      object-position: center bottom;
+      filter: brightness(0.82) contrast(1.05);
       pointer-events: none;
+      background: transparent;
+      -webkit-media-controls: none;
     }
 
     .vid-bg video::-webkit-media-controls,
@@ -61,18 +63,17 @@
       opacity: 0 !important;
     }
 
-    /* fallback gradient (deep midnight blue) */
     .vid-bg {
-      background: radial-gradient(circle at center, #0e1a2a 0%, #040810 100%);
+      background: linear-gradient(180deg, #04070f 0%, #060d1a 40%, #0a1422 70%, #050b16 100%);
     }
 
-    /* ── overlays (lighter to reveal more background) ── */
+    /* ── overlays ── */
     .vignette {
       position: fixed;
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: radial-gradient(ellipse at 50% 55%, transparent 45%, rgba(2,8,18,0.45) 100%);
+      background: radial-gradient(ellipse at 50% 55%, transparent 25%, rgba(1,2,6,0.65) 100%);
     }
 
     .fog {
@@ -81,14 +82,14 @@
       z-index: 1;
       pointer-events: none;
       background: linear-gradient(180deg,
-        rgba(2,8,18,0.35) 0%,
-        rgba(2,8,18,0.05) 35%,
-        transparent 70%,
-        rgba(0,5,15,0.25) 100%
+        rgba(2,4,8,0.72) 0%,
+        rgba(2,4,8,0.08) 30%,
+        transparent 55%,
+        transparent 100%
       );
     }
 
-    /* ── back link (cool silver-blue) ── */
+    /* ── back link ── */
     .back-link {
       position: fixed;
       top: 1.4rem;
@@ -99,7 +100,7 @@
       font-weight: 400;
       letter-spacing: 0.22em;
       text-transform: lowercase;
-      color: rgba(140,170,210,0.7);
+      color: rgba(140,175,220,0.65);
       text-decoration: none;
       border-bottom: 1px solid transparent;
       padding: 0.2rem 0.15rem;
@@ -111,13 +112,13 @@
     }
 
     .back-link:hover {
-      color: rgba(180,210,255,0.95);
-      border-bottom-color: rgba(140,170,210,0.4);
+      color: rgba(175,205,240,0.92);
+      border-bottom-color: rgba(140,175,220,0.38);
     }
 
     @keyframes fadeInUI { to { opacity: 1; } }
 
-    /* ── title (icy glow) ── */
+    /* ── title ── */
     .title {
       position: fixed;
       top: 1.35rem;
@@ -128,14 +129,14 @@
       font-style: italic;
       font-size: 1rem;
       letter-spacing: 0.18em;
-      color: rgba(140,175,215,0.55);
+      color: rgba(160,190,230,0.45);
       white-space: nowrap;
       opacity: 0;
       animation: fadeInUI 2s ease forwards;
       animation-delay: 0.6s;
     }
 
-    /* ── branding (cool muted gold) ── */
+    /* ── branding ── */
     .branding {
       position: fixed;
       bottom: 1.4rem;
@@ -146,7 +147,7 @@
       font-size: 0.92rem;
       font-weight: 400;
       letter-spacing: 0.26em;
-      color: rgba(130,160,200,0.8);
+      color: rgba(130,165,215,0.78);
       text-transform: lowercase;
       white-space: nowrap;
       user-select: none;
@@ -164,10 +165,14 @@
     }
 
     .row {
+      display: -webkit-flex;
       display: flex;
+      -webkit-align-items: center;
       align-items: center;
+      -webkit-justify-content: center;
       justify-content: center;
       gap: clamp(0.35rem, 1.5vw, 1.2rem);
+      -webkit-flex-wrap: nowrap;
       flex-wrap: nowrap;
     }
 
@@ -175,12 +180,16 @@
       opacity: 0;
       animation: profileIn 0.8s ease forwards;
       position: relative;
+      -webkit-flex-shrink: 0;
       flex-shrink: 0;
       width: clamp(48px, 13vw, 130px);
       min-width: clamp(48px, 13vw, 130px);
       max-width: clamp(48px, 13vw, 130px);
+      display: -webkit-flex;
       display: flex;
+      -webkit-flex-direction: column;
       flex-direction: column;
+      -webkit-align-items: center;
       align-items: center;
       gap: 0.3rem;
     }
@@ -204,16 +213,20 @@
       min-width: clamp(48px, 13vw, 130px);
       min-height: clamp(48px, 13vw, 130px);
       border-radius: 4px;
-      border: 1px solid rgba(100,140,190,0.35);
-      background: rgba(8,16,28,0.5);
+      border: 1px solid rgba(100,145,210,0.28);
+      background: rgba(4,8,20,0.55);
       overflow: hidden;
       cursor: pointer;
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
+      user-select: none;
+      -webkit-user-select: none;
+      flex-shrink: 0;
+      -webkit-flex-shrink: 0;
     }
 
     .avatar:hover {
-      border-color: rgba(140,180,230,0.7);
-      box-shadow: 0 0 20px rgba(80,130,200,0.25);
+      border-color: rgba(130,175,235,0.58);
+      box-shadow: 0 0 24px rgba(80,130,220,0.18);
       transform: translateY(-2px);
     }
 
@@ -222,33 +235,47 @@
       height: 100%;
       object-fit: cover;
       display: block;
+      transform: translateZ(0);
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      will-change: transform;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      -webkit-user-drag: none;
+      user-drag: none;
       pointer-events: none;
       user-select: none;
+      -webkit-user-select: none;
     }
 
+    /* desktop / tablet default name style */
     .avatar-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.18em;
-      color: rgba(170,200,240,0.95);
+      color: rgba(185,210,245,0.95);
       text-align: center;
       text-transform: lowercase;
+      user-select: text;
       width: 100%;
-      white-space: nowrap;
+      max-width: 100%;
       overflow: hidden;
       text-overflow: ellipsis;
+      white-space: nowrap;
+      display: block;
+      box-sizing: border-box;
     }
 
-    /* player popup (midnight glass) */
+    /* player popup base */
     .player-popup {
       position: fixed;
       z-index: 100;
       width: 260px;
-      background: rgba(4,10,18,0.94);
-      border: 1px solid rgba(90,130,180,0.3);
+      background: rgba(6, 4, 2, 0.93);
+      border: 1px solid rgba(100,145,210,0.18);
       border-radius: 6px;
-      backdrop-filter: blur(24px);
+      backdrop-filter: blur(22px);
       padding: 1.2rem;
       pointer-events: all;
       opacity: 0;
@@ -282,7 +309,8 @@
       height: 46px;
       border-radius: 3px;
       object-fit: cover;
-      border: 1px solid rgba(100,140,190,0.3);
+      flex-shrink: 0;
+      border: 1px solid rgba(100,145,210,0.2);
     }
 
     .popup-info {
@@ -296,7 +324,8 @@
       font-family: 'IM Fell English', serif;
       font-style: italic;
       font-size: 0.9rem;
-      color: rgba(190,215,245,0.92);
+      color: rgba(210,230,255,0.92);
+      letter-spacing: 0.04em;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -305,8 +334,9 @@
     .popup-artist {
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.7rem;
+      font-weight: 400;
       letter-spacing: 0.16em;
-      color: rgba(130,165,205,0.7);
+      color: rgba(120,160,215,0.65);
       text-transform: lowercase;
     }
 
@@ -319,17 +349,23 @@
     .progress-track {
       width: 100%;
       height: 2px;
-      background: rgba(90,130,180,0.2);
+      background: rgba(100,145,210,0.12);
       border-radius: 2px;
       cursor: pointer;
+      position: relative;
+    }
+
+    .progress-track:hover .progress-fill {
+      background: rgba(155,195,245,0.85);
     }
 
     .progress-fill {
       height: 100%;
-      background: rgba(130,175,225,0.7);
+      background: rgba(100,145,210,0.55);
       border-radius: 2px;
       width: 0%;
-      transition: width 0.25s linear;
+      transition: width 0.25s linear, background 0.2s;
+      pointer-events: none;
     }
 
     .progress-times {
@@ -341,7 +377,7 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.62rem;
       letter-spacing: 0.1em;
-      color: rgba(130,165,205,0.55);
+      color: rgba(120,160,215,0.45);
     }
 
     .popup-controls {
@@ -355,13 +391,15 @@
       border: none;
       cursor: pointer;
       padding: 0.35rem;
-      color: rgba(130,170,215,0.8);
+      color: rgba(140,175,220,0.7);
       transition: color 0.2s, transform 0.15s;
       display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     .ctrl-btn:hover {
-      color: rgba(180,215,255,0.98);
+      color: rgba(200,225,255,0.95);
       transform: scale(1.12);
     }
 
@@ -375,8 +413,9 @@
       font-family: 'Cormorant Garamond', serif;
       font-size: 0.65rem;
       letter-spacing: 0.14em;
-      color: rgba(130,165,205,0.55);
+      color: rgba(120,160,215,0.45);
       text-transform: lowercase;
+      flex-shrink: 0;
     }
 
     .vol-slider {
@@ -384,7 +423,9 @@
       appearance: none;
       flex: 1;
       height: 2px;
-      background: rgba(90,130,180,0.2);
+      background: rgba(100,145,210,0.12);
+      outline: none;
+      border: none;
       border-radius: 2px;
       cursor: pointer;
     }
@@ -394,38 +435,103 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(140,180,230,0.85);
+      background: rgba(120,165,225,0.75);
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .vol-slider::-webkit-slider-thumb:hover {
+      background: rgba(180,215,255,0.95);
+    }
+
+    .vol-slider::-moz-range-thumb {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: rgba(120,165,225,0.75);
+      border: none;
       cursor: pointer;
     }
 
     /* Tablet landscape */
     @media (min-width: 681px) and (max-width: 1100px) {
-      .avatar { width: clamp(60px, 9vw, 100px) !important; height: clamp(60px, 9vw, 100px) !important; }
-      .row { gap: clamp(0.3rem, 1vw, 0.8rem); }
-      .avatar-name { font-size: 0.9rem; letter-spacing: 0.1em; }
+      .avatar {
+        width: clamp(60px, 9vw, 100px) !important;
+        height: clamp(60px, 9vw, 100px) !important;
+      }
+      .row {
+        gap: clamp(0.3rem, 1vw, 0.8rem);
+      }
+      .avatar-name {
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+      }
     }
 
-    /* MOBILE PORTRAIT */
+    /* ── MOBILE PORTRAIT: names stay on ONE LINE, boxes moved HIGHER ── */
     @media (max-width: 680px) {
-      .wrap { padding: 5rem 1rem 1.8rem; align-items: flex-start; justify-content: flex-start; }
+      .wrap {
+        padding: 5rem 1rem 1.8rem;
+        align-items: flex-start;
+        justify-content: flex-start;
+      }
+
       .row {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
+        grid-auto-rows: auto;
+        align-items: start;
+        justify-items: center;
         gap: 0.9rem 0.6rem;
         width: 100%;
         max-width: 540px;
         margin: 0 auto;
       }
-      .profile:last-child:nth-child(3n+1) { grid-column: 2; }
-      .profile { gap: 0.35rem; width: 100%; }
-      .avatar { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1; position: relative !important; display: block; }
-      .avatar img { position: absolute !important; inset: 0 !important; width: 100% !important; height: 100% !important; object-fit: cover !important; }
+
+      .profile:last-child:nth-child(3n+1) {
+        grid-column: 2;
+      }
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.35rem;
+        width: 100%;
+        min-width: 0;
+      }
+
+      .avatar {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1;
+        position: relative !important;
+        display: block;
+      }
+
+      .avatar img {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      /* names always single line, never break */
       .avatar-name {
         white-space: nowrap !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        word-break: keep-all !important;
         font-size: clamp(0.68rem, 3.8vw, 0.95rem);
         letter-spacing: 0.05em;
         font-weight: 600;
+        margin-top: 0.2rem;
+        padding: 0 0.1rem;
+        line-height: 1.2;
       }
+
+      /* bottom sheet player on mobile */
       .player-popup {
         width: 100% !important;
         max-width: 100% !important;
@@ -434,47 +540,125 @@
         bottom: 0 !important;
         top: auto !important;
         border-radius: 14px 14px 0 0;
+        border-left: none;
+        border-right: none;
+        border-bottom: none;
         transform: scale(1) translateY(110%);
+        transition: opacity 0.28s cubic-bezier(.4,0,.2,1), transform 0.32s cubic-bezier(.4,0,.2,1);
         padding: 1.4rem 1.4rem 2rem;
       }
-      .player-popup.visible { transform: scale(1) translateY(0); }
+
+      .player-popup.visible {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+      }
     }
 
-    /* Phone landscape */
+    /* Phone landscape: names one line, smaller font */
     @media (max-height: 500px) and (orientation: landscape) {
-      .wrap { padding: 2rem 0.8rem 1.4rem; align-items: center; justify-content: center; }
-      .row { display: flex; flex-direction: row; gap: clamp(0.25rem, 1vw, 0.55rem) !important; }
-      .profile { flex: 1 1 0; min-width: 0; max-width: calc((100% - 6 * 0.55rem) / 7); }
-      .avatar { width: 100% !important; height: auto !important; aspect-ratio: 1 / 1 !important; }
-      .avatar-name { font-size: clamp(0.55rem, 1.8vw, 0.7rem); white-space: nowrap; }
+      .wrap {
+        padding: 2rem 0.8rem 1.4rem;
+        align-items: center;
+        justify-content: center;
+        min-height: 100dvh;
+        overflow-y: auto;
+      }
+
+      .row {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        justify-content: center;
+        gap: clamp(0.25rem, 1vw, 0.55rem) !important;
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .profile {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.12rem;
+        flex: 1 1 0;
+        min-width: 0;
+        max-width: calc((100% - 6 * clamp(0.25rem, 1vw, 0.55rem)) / 7);
+      }
+
+      .avatar {
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1 / 1 !important;
+        position: relative !important;
+        display: block;
+      }
+
+      .avatar img {
+        position: absolute !important;
+        inset: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+      }
+
+      .avatar-name {
+        font-size: clamp(0.55rem, 1.8vw, 0.7rem);
+        white-space: nowrap;
+        letter-spacing: 0.05em;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.2;
+      }
+
+      .back-link {
+        font-size: 0.75rem;
+        top: 0.5rem;
+        left: 0.8rem;
+      }
+
+      .title {
+        font-size: 0.7rem;
+        top: 0.5rem;
+        letter-spacing: 0.08em;
+        max-width: calc(100% - 8rem);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .branding {
+        bottom: 0.4rem;
+        font-size: 0.7rem;
+      }
+
       .player-popup {
         width: min(280px, 88vw) !important;
+        max-height: calc(100dvh - 2rem);
+        overflow-y: auto;
+        padding: 0.8rem 1rem 1rem;
+        position: fixed !important;
         top: 50% !important;
         left: 50% !important;
         transform: translate(-50%, -50%) scale(0.93) !important;
         bottom: auto !important;
       }
-      .player-popup.visible { transform: translate(-50%, -50%) scale(1) !important; }
+
+      .player-popup.visible {
+        transform: translate(-50%, -50%) scale(1) !important;
+        opacity: 1;
+      }
     }
   </style>
   <script>
-    // Show root domain in address bar
-    history.replaceState(null, '', '/');
+    // history.replaceState disabled for iframe compatibility
 
-    // Redirect to landing page on refresh or direct visit
-    (function() {
-      const navEntry = performance.getEntriesByType?.('navigation')[0];
-      if (navEntry && navEntry.type === 'reload') {
-        window.location.href = '/';
-        return;
-      }
-      if (document.referrer === '' && window.location.pathname !== '/') {
-        window.location.href = '/';
-      }
-    })();
+    // Redirect logic disabled for iframe/preview compatibility
 
-    document.addEventListener('contextmenu', e => e.preventDefault());
-    document.addEventListener('keydown', e => {
+    // Disable right-click and devtools shortcuts
+    document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
+    document.addEventListener('keydown', function(e) {
       if (e.key === 'F12') { e.preventDefault(); return; }
       if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'C' || e.key === 'c' || e.keyCode === 73 || e.keyCode === 74 || e.keyCode === 67)) { e.preventDefault(); return; }
       if (e.ctrlKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) { e.preventDefault(); return; }
@@ -483,13 +667,11 @@
 </head>
 <body>
 
-  <!-- video background: PC and mobile versions with fallbacks -->
+  <!-- video bg -->
   <div class="vid-bg">
-    <video id="bgVid" autoplay muted loop playsinline webkit-playsinline disableRemotePlayback preload="metadata">
-      <source src="https://igotyou.lol/video/pc.mp4" type="video/mp4" media="(min-width: 768px)">
-      <source src="https://igotyou.lol/video/mobile.mp4" type="video/mp4" media="(max-width: 767px)">
-      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/pc.mp4" type="video/mp4">
-      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/mobile.mp4" type="video/mp4">
+    <video id="bgVid" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disableRemotePlayback preload="metadata">
+      <source src="https://igotyou.lol/video/citycompressed.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/citycompressed.mp4" type="video/mp4">
     </video>
   </div>
   <div class="fog"></div>
@@ -509,30 +691,30 @@
   <audio id="trackAudio6" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/kwk.mp3" type="audio/mpeg"></audio>
   <audio id="trackAudio7" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/eyhoc.mp3" type="audio/mpeg"></audio>
 
-  <!-- Popups (7) -->
-  <div class="player-popup hidden" id="playerPopup"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="art"><div class="popup-info"><div class="popup-title">kickflip</div><div class="popup-artist">maajins</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent">0:00</span><span class="progress-time" id="timeDuration">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup2"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="art"><div class="popup-info"><div class="popup-title">a star called the sun</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack2"><div class="progress-fill" id="progressFill2"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent2">0:00</span><span class="progress-time" id="timeDuration2">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn2"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider2"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup3"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="art"><div class="popup-info"><div class="popup-title">addicted</div><div class="popup-artist">osamason</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack3"><div class="progress-fill" id="progressFill3"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent3">0:00</span><span class="progress-time" id="timeDuration3">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn3"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider3"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup4"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="art"><div class="popup-info"><div class="popup-title">yesterday</div><div class="popup-artist">the beatles</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack4"><div class="progress-fill" id="progressFill4"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent4">0:00</span><span class="progress-time" id="timeDuration4">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn4"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider4"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup5"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="art"><div class="popup-info"><div class="popup-title">the star</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack5"><div class="progress-fill" id="progressFill5"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent5">0:00</span><span class="progress-time" id="timeDuration5">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn5"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider5"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup6"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="art"><div class="popup-info"><div class="popup-title">nothing else matters</div><div class="popup-artist">metallica</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack6"><div class="progress-fill" id="progressFill6"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent6">0:00</span><span class="progress-time" id="timeDuration6">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn6"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider6"></div></div></div>
-  <div class="player-popup hidden" id="playerPopup7"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="art"><div class="popup-info"><div class="popup-title">my way</div><div class="popup-artist">frank sinatra</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack7"><div class="progress-fill" id="progressFill7"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent7">0:00</span><span class="progress-time" id="timeDuration7">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn7"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider7"></div></div></div>
+  <!-- Popups (all 7) -->
+  <div class="player-popup hidden" id="playerPopup"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="art"><div class="popup-info"><div class="popup-title">kickflip</div><div class="popup-artist">maajins</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent">0:00</span><span class="progress-time" id="timeDuration">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn"><svg id="iconPlay" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup2"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="art"><div class="popup-info"><div class="popup-title">a star called the sun</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack2"><div class="progress-fill" id="progressFill2"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent2">0:00</span><span class="progress-time" id="timeDuration2">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn2"><svg id="iconPlay2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider2"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup3"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="art"><div class="popup-info"><div class="popup-title">addicted</div><div class="popup-artist">osamason</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack3"><div class="progress-fill" id="progressFill3"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent3">0:00</span><span class="progress-time" id="timeDuration3">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn3"><svg id="iconPlay3" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause3" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider3"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup4"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="art"><div class="popup-info"><div class="popup-title">yesterday</div><div class="popup-artist">the beatles</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack4"><div class="progress-fill" id="progressFill4"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent4">0:00</span><span class="progress-time" id="timeDuration4">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn4"><svg id="iconPlay4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider4"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup5"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="art"><div class="popup-info"><div class="popup-title">the star</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack5"><div class="progress-fill" id="progressFill5"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent5">0:00</span><span class="progress-time" id="timeDuration5">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn5"><svg id="iconPlay5" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause5" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider5"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup6"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="art"><div class="popup-info"><div class="popup-title">nothing else matters</div><div class="popup-artist">metallica</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack6"><div class="progress-fill" id="progressFill6"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent6">0:00</span><span class="progress-time" id="timeDuration6">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn6"><svg id="iconPlay6" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause6" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider6"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup7"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="art"><div class="popup-info"><div class="popup-title">my way</div><div class="popup-artist">frank sinatra</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack7"><div class="progress-fill" id="progressFill7"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent7">0:00</span><span class="progress-time" id="timeDuration7">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn7"><svg id="iconPlay7" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause7" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider7"></div></div></div>
 
   <!-- Profiles -->
   <div class="wrap">
     <div class="row">
-      <div class="profile"><div class="avatar" id="avatarUnki"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="pfp"></div><div class="avatar-name">reb</div></div>
-      <div class="profile"><div class="avatar" id="avatarPachelbel"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="pfp"></div><div class="avatar-name">avmeredy</div></div>
-      <div class="profile"><div class="avatar" id="avatarKino"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="pfp"></div><div class="avatar-name">pprojekkt</div></div>
-      <div class="profile"><div class="avatar" id="avatarMid"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="pfp"></div><div class="avatar-name">rio</div></div>
-      <div class="profile"><div class="avatar" id="avatarSkai"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="pfp"></div><div class="avatar-name">casta</div></div>
-      <div class="profile"><div class="avatar" id="avatarMetallica"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="pfp"></div><div class="avatar-name">kwk</div></div>
-      <div class="profile"><div class="avatar" id="avatarSinatra"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="pfp"></div><div class="avatar-name">eyhoc</div></div>
+      <div class="profile" id="profileUnki"><div class="avatar" id="avatarUnki"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="pfp"></div><div class="avatar-name">reb</div></div>
+      <div class="profile" id="profilePachelbel"><div class="avatar" id="avatarPachelbel"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="pfp"></div><div class="avatar-name">avmeredy</div></div>
+      <div class="profile" id="profileKino"><div class="avatar" id="avatarKino"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="pfp"></div><div class="avatar-name">pprojekkt</div></div>
+      <div class="profile" id="profileMid"><div class="avatar" id="avatarMid"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="pfp"></div><div class="avatar-name">rio</div></div>
+      <div class="profile" id="profileSkai"><div class="avatar" id="avatarSkai"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="pfp"></div><div class="avatar-name">casta</div></div>
+      <div class="profile" id="profileMetallica"><div class="avatar" id="avatarMetallica"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="pfp"></div><div class="avatar-name">kwk</div></div>
+      <div class="profile" id="profileSinatra"><div class="avatar" id="avatarSinatra"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="pfp"></div><div class="avatar-name">eyhoc</div></div>
     </div>
   </div>
 
   <script>
-    // Video background autoplay robust
+    // Video & autoplay robust
     const bgVid = document.getElementById('bgVid');
     bgVid.setAttribute('playsinline', '');
     bgVid.setAttribute('webkit-playsinline', '');
@@ -542,12 +724,18 @@
     bgVid.load(); tryPlayVid();
     document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
     document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
+    function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/city.mp4'; bgVid.load(); tryPlayVid(); }
+    bgVid.addEventListener('error', tryFallback, { once: true });
     
+
+
+    // Helper: format time
     function fmt(s) { if (!isFinite(s)) return '—'; return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`; }
     
-    // Desktop popup positioning
+    // ---------- DESKTOP POPUP POSITIONING ----------
     function isMobile() { return window.innerWidth <= 680; }
     function isLandscapeMobile() { return window.innerHeight <= 500 && window.innerWidth > window.innerHeight; }
+    
     function positionPopup(popupEl, avatarEl) {
       if (isMobile() || isLandscapeMobile()) return;
       const rect = avatarEl.getBoundingClientRect();
@@ -555,20 +743,25 @@
       let left = rect.left + rect.width / 2 - pw / 2;
       left = Math.max(8, Math.min(left, window.innerWidth - pw - 8));
       const ph = popupEl.offsetHeight || 180;
-      let top = (rect.top > ph + 16) ? rect.top - ph - 12 : rect.bottom + 12;
-      top = Math.min(Math.max(8, top), window.innerHeight - ph - 8);
+      const vhMax = window.innerHeight - 8;
+      let top;
+      if (rect.top > ph + 16) top = rect.top - ph - 12;
+      else top = rect.bottom + 12;
+      top = Math.min(top, vhMax - ph);
+      top = Math.max(8, top);
       popupEl.style.top = top + 'px';
       popupEl.style.left = left + 'px';
     }
     
+    // ---- Audio and popup management for all 7 players ----
     const playersData = [
-      { audioId: 'trackAudio', popupId: 'playerPopup', avatarId: 'avatarMid', playBtnId: 'playPauseBtn', fillId: 'progressFill', curId: 'timeCurrent', durId: 'timeDuration', trackId: 'progressTrack', volId: 'volSlider' },
-      { audioId: 'trackAudio2', popupId: 'playerPopup2', avatarId: 'avatarKino', playBtnId: 'playPauseBtn2', fillId: 'progressFill2', curId: 'timeCurrent2', durId: 'timeDuration2', trackId: 'progressTrack2', volId: 'volSlider2' },
-      { audioId: 'trackAudio3', popupId: 'playerPopup3', avatarId: 'avatarSkai', playBtnId: 'playPauseBtn3', fillId: 'progressFill3', curId: 'timeCurrent3', durId: 'timeDuration3', trackId: 'progressTrack3', volId: 'volSlider3' },
-      { audioId: 'trackAudio4', popupId: 'playerPopup4', avatarId: 'avatarPachelbel', playBtnId: 'playPauseBtn4', fillId: 'progressFill4', curId: 'timeCurrent4', durId: 'timeDuration4', trackId: 'progressTrack4', volId: 'volSlider4' },
-      { audioId: 'trackAudio5', popupId: 'playerPopup5', avatarId: 'avatarUnki', playBtnId: 'playPauseBtn5', fillId: 'progressFill5', curId: 'timeCurrent5', durId: 'timeDuration5', trackId: 'progressTrack5', volId: 'volSlider5' },
-      { audioId: 'trackAudio6', popupId: 'playerPopup6', avatarId: 'avatarMetallica', playBtnId: 'playPauseBtn6', fillId: 'progressFill6', curId: 'timeCurrent6', durId: 'timeDuration6', trackId: 'progressTrack6', volId: 'volSlider6' },
-      { audioId: 'trackAudio7', popupId: 'playerPopup7', avatarId: 'avatarSinatra', playBtnId: 'playPauseBtn7', fillId: 'progressFill7', curId: 'timeCurrent7', durId: 'timeDuration7', trackId: 'progressTrack7', volId: 'volSlider7' }
+      { audioId: 'trackAudio', popupId: 'playerPopup', avatarId: 'avatarMid', playBtnId: 'playPauseBtn', iconPlayId: 'iconPlay', iconPauseId: 'iconPause', fillId: 'progressFill', curId: 'timeCurrent', durId: 'timeDuration', trackId: 'progressTrack', volId: 'volSlider' },
+      { audioId: 'trackAudio2', popupId: 'playerPopup2', avatarId: 'avatarKino', playBtnId: 'playPauseBtn2', iconPlayId: 'iconPlay2', iconPauseId: 'iconPause2', fillId: 'progressFill2', curId: 'timeCurrent2', durId: 'timeDuration2', trackId: 'progressTrack2', volId: 'volSlider2' },
+      { audioId: 'trackAudio3', popupId: 'playerPopup3', avatarId: 'avatarSkai', playBtnId: 'playPauseBtn3', iconPlayId: 'iconPlay3', iconPauseId: 'iconPause3', fillId: 'progressFill3', curId: 'timeCurrent3', durId: 'timeDuration3', trackId: 'progressTrack3', volId: 'volSlider3' },
+      { audioId: 'trackAudio4', popupId: 'playerPopup4', avatarId: 'avatarPachelbel', playBtnId: 'playPauseBtn4', iconPlayId: 'iconPlay4', iconPauseId: 'iconPause4', fillId: 'progressFill4', curId: 'timeCurrent4', durId: 'timeDuration4', trackId: 'progressTrack4', volId: 'volSlider4' },
+      { audioId: 'trackAudio5', popupId: 'playerPopup5', avatarId: 'avatarUnki', playBtnId: 'playPauseBtn5', iconPlayId: 'iconPlay5', iconPauseId: 'iconPause5', fillId: 'progressFill5', curId: 'timeCurrent5', durId: 'timeDuration5', trackId: 'progressTrack5', volId: 'volSlider5' },
+      { audioId: 'trackAudio6', popupId: 'playerPopup6', avatarId: 'avatarMetallica', playBtnId: 'playPauseBtn6', iconPlayId: 'iconPlay6', iconPauseId: 'iconPause6', fillId: 'progressFill6', curId: 'timeCurrent6', durId: 'timeDuration6', trackId: 'progressTrack6', volId: 'volSlider6' },
+      { audioId: 'trackAudio7', popupId: 'playerPopup7', avatarId: 'avatarSinatra', playBtnId: 'playPauseBtn7', iconPlayId: 'iconPlay7', iconPauseId: 'iconPause7', fillId: 'progressFill7', curId: 'timeCurrent7', durId: 'timeDuration7', trackId: 'progressTrack7', volId: 'volSlider7' }
     ];
     
     let popupStates = new Array(7).fill(false);
@@ -576,25 +769,26 @@
     const popups = playersData.map(p => document.getElementById(p.popupId));
     const avatars = playersData.map(p => document.getElementById(p.avatarId));
     
+    // Helper: pause all except given audio
     function pauseAllExcept(keepAudio) {
       audios.forEach((aud, idx) => {
         if (aud !== keepAudio && !aud.paused) {
           aud.pause();
-          const btn = document.getElementById(playersData[idx].playBtnId);
-          if (btn) {
-            const svgs = btn.querySelectorAll('svg');
-            if (svgs[0]) svgs[0].style.display = 'block';
-            if (svgs[1]) svgs[1].style.display = 'none';
-          }
+          const iconPlay = document.getElementById(playersData[idx].iconPlayId);
+          const iconPause = document.getElementById(playersData[idx].iconPauseId);
+          if (iconPlay && iconPause) { iconPlay.style.display = 'block'; iconPause.style.display = 'none'; }
         }
       });
     }
     
+    // Initialize each player
     playersData.forEach((data, idx) => {
       const audio = audios[idx];
       const popup = popups[idx];
       const avatar = avatars[idx];
       const playBtn = document.getElementById(data.playBtnId);
+      const iconPlay = document.getElementById(data.iconPlayId);
+      const iconPause = document.getElementById(data.iconPauseId);
       const fill = document.getElementById(data.fillId);
       const timeCur = document.getElementById(data.curId);
       const timeDur = document.getElementById(data.durId);
@@ -604,18 +798,14 @@
       if (audio) audio.volume = 0.8;
       if (volSlider) volSlider.addEventListener('input', () => { if (audio) audio.volume = parseFloat(volSlider.value); });
       if (playBtn) {
-        const svgPlay = playBtn.querySelector('svg:first-of-type');
-        const svgPause = playBtn.querySelector('svg:last-of-type');
         playBtn.addEventListener('click', () => {
           if (audio.paused) {
             pauseAllExcept(audio);
             audio.play();
-            if (svgPlay) svgPlay.style.display = 'none';
-            if (svgPause) svgPause.style.display = 'block';
+            if (iconPlay && iconPause) { iconPlay.style.display = 'none'; iconPause.style.display = 'block'; }
           } else {
             audio.pause();
-            if (svgPlay) svgPlay.style.display = 'block';
-            if (svgPause) svgPause.style.display = 'none';
+            if (iconPlay && iconPause) { iconPlay.style.display = 'block'; iconPause.style.display = 'none'; }
           }
         });
       }
@@ -630,6 +820,7 @@
         track.addEventListener('click', e => { const rect = track.getBoundingClientRect(); audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration; });
       }
       
+      // Popup toggle with desktop positioning
       if (avatar && popup) {
         avatar.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -655,6 +846,7 @@
       }
     });
     
+    // Global click to close popups
     document.addEventListener('click', (e) => {
       for (let i = 0; i < popups.length; i++) {
         const pop = popups[i];
@@ -667,12 +859,22 @@
     });
     popups.forEach(pop => { if (pop) pop.addEventListener('click', e => e.stopPropagation()); });
     
+    // Reposition popups on resize (desktop)
     window.addEventListener('resize', () => {
       if (!isMobile() && !isLandscapeMobile()) {
         for (let i = 0; i < popups.length; i++) {
           if (popupStates[i]) positionPopup(popups[i], avatars[i]);
         }
       }
+    });
+    window.addEventListener('orientationchange', () => {
+      setTimeout(() => {
+        if (!isMobile() && !isLandscapeMobile()) {
+          for (let i = 0; i < popups.length; i++) {
+            if (popupStates[i]) positionPopup(popups[i], avatars[i]);
+          }
+        }
+      }, 100);
     });
   </script>
 </body>
