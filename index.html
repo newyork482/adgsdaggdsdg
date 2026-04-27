@@ -10,7 +10,7 @@
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      user-select: none; /* disables text selection, adds to inspection deterrent */
+      user-select: none;
       -webkit-tap-highlight-color: transparent;
     }
 
@@ -374,9 +374,7 @@
 </div>
 
 <script>
-  // ----------------------------------------------
-  // 🛡️ DISABLE INSPECTING / DEV TOOLS (deterrent)
-  // ----------------------------------------------
+  
   (function disableInspect() {
     // block right-click
     document.addEventListener('contextmenu', function(e) {
@@ -613,10 +611,10 @@
   // also ensure that the initial 'season' doesn't block music start: user must click again
   // optionally preload metadata? fine.
 
-  // Safety: on any user tap to document, if audio not started and user clicks 'again' it will start.
+  // safety: on any user tap to document, if audio not started and user clicks 'again' it will start.
   // also prevent any default action on button if needed.
   // Safari landscape overlap fix already applied by CSS and flexible wrap.
-  // Additionally, ensure that brand does not overlay controls with large padding
+  // additionally, ensure that brand does not overlay controls with large padding
   window.addEventListener('resize', () => {
     // fix any weird canvas redraw
     resizeCanvas();
