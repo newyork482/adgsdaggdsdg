@@ -2,29 +2,39 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>i got you</title>
   <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:wght@300;400&display=swap" rel="stylesheet">
   <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      user-select: none; /* disables text selection, adds to inspection deterrent */
+      -webkit-tap-highlight-color: transparent;
+    }
 
-    html, body {
-      width: 100%;
-      height: 100%;
+    html {
       overflow: hidden;
+      height: 100%;
       background: #0e1218;
     }
 
-    body { font-family: 'Cormorant Garamond', serif; }
-
     body {
+      height: 100%;
+      overflow-y: auto;
+      overflow-x: hidden;
+      font-family: 'Cormorant Garamond', serif;
+      background: transparent;
       opacity: 1;
       transition: opacity 0.55s ease;
+      position: relative;
     }
     body.fading {
       opacity: 0;
     }
 
+    /* fixed background layers */
     .outside {
       position: fixed;
       inset: 0;
@@ -47,7 +57,7 @@
       z-index: 2;
     }
 
-    /* ── who link top-right ── */
+    /* top-right who link */
     .who-link {
       position: fixed;
       top: 1.4rem;
@@ -78,7 +88,7 @@
       to { opacity: 1; }
     }
 
-    /* ── now playing + volume ── */
+    /* now playing + volume */
     .top-left {
       position: fixed;
       top: 1.4rem;
@@ -149,7 +159,8 @@
     }
     .vol-track-bg {
       position: absolute;
-      left: 0; right: 0;
+      left: 0;
+      right: 0;
       height: 2px;
       background: #2e4050;
       border-radius: 2px;
@@ -172,17 +183,18 @@
     }
     .vol-track:hover .vol-thumb { background: rgba(160,200,240,0.8); }
 
-    /* ── main ── */
+    /* main content – scrollable area */
     .wrap {
       position: relative;
       z-index: 5;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3rem;
-      padding: 2rem;
+      gap: 2.2rem;
+      padding: 5rem 2rem 6rem 2rem;
+      min-height: 100%;
+      width: 100%;
     }
 
     .sentence {
@@ -202,7 +214,7 @@
     }
 
     .word-slot {
-      min-width: 200px;
+      min-width: 180px;
       display: flex;
       align-items: baseline;
       justify-content: center;
@@ -261,10 +273,9 @@
       border-color: rgba(60,80,100,0.1);
     }
 
-    /* ── branding ── */
     .branding {
       position: fixed;
-      bottom: 1.4rem;
+      bottom: 1.2rem;
       left: 50%;
       transform: translateX(-50%);
       z-index: 10;
@@ -276,215 +287,359 @@
       text-transform: lowercase;
       white-space: nowrap;
       user-select: none;
+      pointer-events: none;
+    }
+
+    /* FIX: Safari landscape overlap & spacing */
+    @media (orientation: landscape) and (max-height: 550px) {
+      .wrap {
+        gap: 1.5rem;
+        padding: 2.5rem 2rem 3.5rem 2rem;
+      }
+      .static-word, .word-display {
+        font-size: clamp(1.6rem, 4vw, 2.5rem);
+      }
+      .word-slot {
+        min-width: 140px;
+      }
+      .spin-btn {
+        font-size: 1rem;
+        margin-top: 0.2rem;
+      }
+      .branding {
+        font-size: 0.7rem;
+        bottom: 0.7rem;
+      }
+      .top-left {
+        top: 0.8rem;
+        left: 1rem;
+      }
+      .who-link {
+        top: 0.8rem;
+        right: 1rem;
+        font-size: 0.85rem;
+      }
+    }
+
+    /* extra safety for very small heights */
+    @media (max-height: 480px) and (orientation: landscape) {
+      .wrap {
+        gap: 1rem;
+        padding: 1.5rem 1rem 2rem 1rem;
+      }
     }
   </style>
 </head>
 <body>
 
-  <div class="outside"></div>
-  <canvas id="c"></canvas>
-  <div class="vignette"></div>
+<div class="outside"></div>
+<canvas id="c"></canvas>
+<div class="vignette"></div>
 
-  <!-- Who link -->
-  <a class="who-link" id="whoLink" href="#">who</a>
+<a class="who-link" id="whoLink" href="#">who</a>
 
-  <div class="top-left" id="topLeft">
-    <div class="np-row">
-      <div class="np-dot"></div>
-      <div class="np-text">now playing &nbsp;<span class="np-title">yesterday — vs self</span></div>
-    </div>
-    <div class="vol-row">
-      <span class="vol-label">vol</span>
-      <div class="vol-track" id="volTrack">
-        <div class="vol-track-bg"></div>
-        <div class="vol-track-fill" id="volFill" style="width:80%"></div>
-        <div class="vol-thumb" id="volThumb" style="left:80%"></div>
-      </div>
+<div class="top-left" id="topLeft">
+  <div class="np-row">
+    <div class="np-dot"></div>
+    <div class="np-text">now playing &nbsp;<span class="np-title">yesterday — vs self</span></div>
+  </div>
+  <div class="vol-row">
+    <span class="vol-label">vol</span>
+    <div class="vol-track" id="volTrack">
+      <div class="vol-track-bg"></div>
+      <div class="vol-track-fill" id="volFill" style="width:80%"></div>
+      <div class="vol-thumb" id="volThumb" style="left:80%"></div>
     </div>
   </div>
+</div>
 
-  <div class="branding">rapture®</div>
+<div class="branding">rapture®</div>
 
-  <audio id="audio" loop>
-    <source src="https://raw.githubusercontent.com/newyork482/igotyoulol/main/music/song.mp3" type="audio/mpeg">
-  </audio>
-  <audio id="rain" loop>
-    <source src="https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3" type="audio/mpeg">
-  </audio>
+<audio id="audio" loop preload="auto">
+  <source src="https://raw.githubusercontent.com/newyork482/igotyoulol/main/music/song.mp3" type="audio/mpeg">
+</audio>
+<audio id="rain" loop preload="auto">
+  <source src="https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3" type="audio/mpeg">
+</audio>
 
-  <div class="wrap">
-    <div class="sentence">
-      <span class="static-word">rapture</span>
-      <div class="word-slot">
-        <span class="word-display" id="word">season</span>
-      </div>
+<div class="wrap">
+  <div class="sentence">
+    <span class="static-word">rapture</span>
+    <div class="word-slot">
+      <span class="word-display" id="word">season</span>
     </div>
-    <div class="divider"></div>
-    <button class="spin-btn" id="btn" onclick="spin()">again</button>
   </div>
+  <div class="divider"></div>
+  <button class="spin-btn" id="btn">again</button>
+</div>
 
-  <script>
-    // ── who link ──────────────────────────────────────────────
-    try { history.replaceState(null, '', 'https://igotyou.lol'); } catch(e) {}
-    document.getElementById('whoLink').addEventListener('click', function(e) {
+<script>
+  // ----------------------------------------------
+  // 🛡️ DISABLE INSPECTING / DEV TOOLS (deterrent)
+  // ----------------------------------------------
+  (function disableInspect() {
+    // block right-click
+    document.addEventListener('contextmenu', function(e) {
       e.preventDefault();
-      document.body.classList.add('fading');
-      setTimeout(() => {
-        window.location.href = '/b/who.html';
-      }, 560);
+      return false;
     });
 
-    // ── audio + volume ─────────────────────────────────────────
-    const audio     = document.getElementById('audio');
-    const rain      = document.getElementById('rain');
-    const topLeft   = document.getElementById('topLeft');
-
-    audio.volume = 0.8;
-
-    const volTrack = document.getElementById('volTrack');
-    const volFill  = document.getElementById('volFill');
-    const volThumb = document.getElementById('volThumb');
-
-    function setVol(clientX) {
-      const rect = volTrack.getBoundingClientRect();
-      let pct = (clientX - rect.left) / rect.width;
-      pct = Math.max(0, Math.min(1, pct));
-      audio.volume = pct;
-      volFill.style.width  = (pct * 100) + '%';
-      volThumb.style.left  = (pct * 100) + '%';
-    }
-
-    let dragging = false;
-    volTrack.addEventListener('mousedown',  e => { dragging = true; setVol(e.clientX); });
-    window.addEventListener('mousemove',    e => { if (dragging) setVol(e.clientX); });
-    window.addEventListener('mouseup',      ()  => { dragging = false; });
-
-    let touchDragging = false;
-    volTrack.addEventListener('touchstart', e => {
-      e.preventDefault();
-      touchDragging = true;
-      setVol(e.touches[0].clientX);
-    }, { passive: false });
-    window.addEventListener('touchmove', e => {
-      if (!touchDragging) return;
-      e.preventDefault();
-      setVol(e.touches[0].clientX);
-    }, { passive: false });
-    window.addEventListener('touchend', () => { touchDragging = false; });
-
-    // ── rain ──────────────────────────────────────────────────
-    const canvas = document.getElementById('c');
-    const ctx = canvas.getContext('2d');
-    let W, H;
-
-    function resize() {
-      W = canvas.width  = window.innerWidth;
-      H = canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener('resize', resize);
-
-    function newStreak(scatter) {
-      const len = 15 + Math.random() * 35;
-      return {
-        x:     Math.random() * (W + 60) - 30,
-        y:     scatter ? Math.random() * H : -len,
-        len,
-        speed: 6 + Math.random() * 10,
-        alpha: 0.03 + Math.random() * 0.1,
-        width: 0.4 + Math.random() * 0.7,
-      };
-    }
-
-    const streaks = Array.from({ length: 140 }, () => newStreak(true));
-
-    function animate() {
-      ctx.clearRect(0, 0, W, H);
-      streaks.forEach(s => {
-        ctx.save();
-        ctx.globalAlpha = s.alpha;
-        ctx.strokeStyle = 'rgba(180,210,245,1)';
-        ctx.lineWidth = s.width;
-        ctx.lineCap = 'round';
-        ctx.beginPath();
-        ctx.moveTo(s.x, s.y);
-        ctx.lineTo(s.x - s.len * 0.12, s.y + s.len);
-        ctx.stroke();
-        ctx.restore();
-        s.y += s.speed;
-        s.x -= s.speed * 0.12;
-        if (s.y - s.len > H || s.x < -60) Object.assign(s, newStreak(false));
-      });
-      requestAnimationFrame(animate);
-    }
-    animate();
-
-    // ── words ──────────────────────────────────────────────────
-    const words = [
-      "season", "time", "calls", "waits", "arrives",
-      "never sleeps", "finds you", "knows", "sees all", "remembers",
-      "forgives", "endures", "begins", "returns", "remains",
-      "fades slow", "cuts deep", "burns bright", "hits different", "stays",
-      "heals", "breaks", "builds", "falls", "rises",
-      "is near", "is now", "is real", "is quiet", "is loud",
-      "runs deep", "runs cold", "runs dry", "never lies", "never ends",
-      "has no mercy", "has no clock", "has no map", "has no name",
-      "takes its time", "takes everything", "takes nothing back",
-      "leaves marks", "leaves scars", "leaves beauty",
-      "speaks first", "speaks last", "speaks true",
-      "is patient", "is certain", "is violent", "is tender",
-      "was always here", "was always you", "was always this",
-      "chose you", "chose silence", "chose fire",
-      "feels heavy", "feels close", "feels like truth",
-      "moves slow", "moves fast", "moves like water",
-      "sounds like rain", "sounds like nothing", "sounds like everything",
-      "looks like peace", "looks like war", "looks like home",
-      "lives in the dark", "lives in the quiet", "lives in you",
-      "will find you", "will pass", "will matter"
-    ];
-
-    let current = "season";
-    let spinning = false;
-    let musicStarted = false;
-    let spinInterval = null;
-
-    function spin() {
-      if (spinning) return;
-      spinning = true;
-
-      // clear any lingering interval from a previous run
-      if (spinInterval) { clearInterval(spinInterval); spinInterval = null; }
-
-      if (!musicStarted) {
-        audio.play().then(() => topLeft.classList.add('visible')).catch(() => {});
-        const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-        if (!isMobile) { rain.volume = 0.008; rain.play().catch(() => {}); }
-        musicStarted = true;
+    // block F12, Ctrl+Shift+I, Ctrl+Shift+C, Ctrl+Shift+J, Ctrl+U, Ctrl+Shift+U, Cmd+Option+I (mac), etc.
+    document.addEventListener('keydown', function(e) {
+      // F12
+      if (e.key === 'F12' || e.keyCode === 123) {
+        e.preventDefault();
+        return false;
       }
+      // Ctrl+Shift+I / Cmd+Option+I (dev tools)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'I' || e.key === 'i' || e.keyCode === 73)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+C (inspect element)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'C' || e.key === 'c' || e.keyCode === 67)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+J (console)
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'J' || e.key === 'j' || e.keyCode === 74)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+U / Cmd+U (view source)
+      if ((e.ctrlKey || e.metaKey) && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+      // Ctrl+Shift+U
+      if ((e.ctrlKey || e.metaKey) && e.shiftKey && (e.key === 'U' || e.key === 'u' || e.keyCode === 85)) {
+        e.preventDefault();
+        return false;
+      }
+      // prevent debugging shortcut (F12 handled, also inspect element)
+    });
 
-      const el  = document.getElementById('word');
-      const btn = document.getElementById('btn');
-      btn.classList.add('running');
-      el.classList.add('spinning');
-      const pool     = words.filter(w => w !== current);
-      const next     = pool[Math.floor(Math.random() * pool.length)];
-      const shuffled = [...pool].sort(() => Math.random() - 0.5);
-      let ticks = 0;
-      const total = 20 + Math.floor(Math.random() * 10);
-      spinInterval = setInterval(() => {
-        el.textContent = shuffled[ticks % shuffled.length];
-        ticks++;
-        if (ticks >= total) {
-          clearInterval(spinInterval);
-          spinInterval = null;
-          el.textContent = next;
-          current = next;
-          el.classList.remove('spinning');
-          btn.classList.remove('running');
-          spinning = false;
-        }
-      }, 70);
+    // additional: disable long-press on links / images to avoid "inspect" context menu on safari? already covered
+    // disable text selection via CSS already in *
+    // disable dragging of images / elements
+    window.addEventListener('dragstart', e => e.preventDefault());
+  })();
+
+  // ----------------------------------------------
+  // who link + fade transition
+  // ----------------------------------------------
+  try { history.replaceState(null, '', 'https://igotyou.lol'); } catch(e) {}
+  document.getElementById('whoLink').addEventListener('click', function(e) {
+    e.preventDefault();
+    document.body.classList.add('fading');
+    setTimeout(() => {
+      window.location.href = '/b/who.html';
+    }, 560);
+  });
+
+  // ----------------------------------------------
+  // Audio + volume controls
+  // ----------------------------------------------
+  const audioEl = document.getElementById('audio');
+  const rainEl = document.getElementById('rain');
+  const topLeftDiv = document.getElementById('topLeft');
+
+  audioEl.volume = 0.8;
+
+  const volTrack = document.getElementById('volTrack');
+  const volFill = document.getElementById('volFill');
+  const volThumb = document.getElementById('volThumb');
+
+  function setVol(clientX) {
+    const rect = volTrack.getBoundingClientRect();
+    let pct = (clientX - rect.left) / rect.width;
+    pct = Math.max(0, Math.min(1, pct));
+    audioEl.volume = pct;
+    volFill.style.width = (pct * 100) + '%';
+    volThumb.style.left = (pct * 100) + '%';
+  }
+
+  let dragging = false;
+  volTrack.addEventListener('mousedown', e => { dragging = true; setVol(e.clientX); });
+  window.addEventListener('mousemove', e => { if (dragging) setVol(e.clientX); });
+  window.addEventListener('mouseup', () => { dragging = false; });
+
+  let touchDragging = false;
+  volTrack.addEventListener('touchstart', e => {
+    e.preventDefault();
+    touchDragging = true;
+    setVol(e.touches[0].clientX);
+  }, { passive: false });
+  window.addEventListener('touchmove', e => {
+    if (!touchDragging) return;
+    e.preventDefault();
+    setVol(e.touches[0].clientX);
+  }, { passive: false });
+  window.addEventListener('touchend', () => { touchDragging = false; });
+
+  // ----------------------------------------------
+  // Rain Canvas Effect
+  // ----------------------------------------------
+  const canvas = document.getElementById('c');
+  const ctx = canvas.getContext('2d');
+  let W, H;
+
+  function resizeCanvas() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  resizeCanvas();
+  window.addEventListener('resize', resizeCanvas);
+
+  function newStreak(scatter) {
+    const len = 15 + Math.random() * 35;
+    return {
+      x: Math.random() * (W + 60) - 30,
+      y: scatter ? Math.random() * H : -len,
+      len: len,
+      speed: 5 + Math.random() * 10,
+      alpha: 0.03 + Math.random() * 0.1,
+      width: 0.4 + Math.random() * 0.7,
+    };
+  }
+
+  const streaks = Array.from({ length: 140 }, () => newStreak(true));
+
+  function animateRain() {
+    ctx.clearRect(0, 0, W, H);
+    streaks.forEach(s => {
+      ctx.save();
+      ctx.globalAlpha = s.alpha;
+      ctx.strokeStyle = 'rgba(180,210,245,1)';
+      ctx.lineWidth = s.width;
+      ctx.lineCap = 'round';
+      ctx.beginPath();
+      ctx.moveTo(s.x, s.y);
+      ctx.lineTo(s.x - s.len * 0.12, s.y + s.len);
+      ctx.stroke();
+      ctx.restore();
+      s.y += s.speed;
+      s.x -= s.speed * 0.12;
+      if (s.y - s.len > H || s.x < -60) Object.assign(s, newStreak(false));
+    });
+    requestAnimationFrame(animateRain);
+  }
+  animateRain();
+
+  // ----------------------------------------------
+  // Word spinner logic (rapture filler)
+  // ----------------------------------------------
+  const words = [
+    "season", "time", "calls", "waits", "arrives",
+    "never sleeps", "finds you", "knows", "sees all", "remembers",
+    "forgives", "endures", "begins", "returns", "remains",
+    "fades slow", "cuts deep", "burns bright", "hits different", "stays",
+    "heals", "breaks", "builds", "falls", "rises",
+    "is near", "is now", "is real", "is quiet", "is loud",
+    "runs deep", "runs cold", "runs dry", "never lies", "never ends",
+    "has no mercy", "has no clock", "has no map", "has no name",
+    "takes its time", "takes everything", "takes nothing back",
+    "leaves marks", "leaves scars", "leaves beauty",
+    "speaks first", "speaks last", "speaks true",
+    "is patient", "is certain", "is violent", "is tender",
+    "was always here", "was always you", "was always this",
+    "chose you", "chose silence", "chose fire",
+    "feels heavy", "feels close", "feels like truth",
+    "moves slow", "moves fast", "moves like water",
+    "sounds like rain", "sounds like nothing", "sounds like everything",
+    "looks like peace", "looks like war", "looks like home",
+    "lives in the dark", "lives in the quiet", "lives in you",
+    "will find you", "will pass", "will matter"
+  ];
+
+  let currentWord = "season";
+  let spinning = false;
+  let musicStarted = false;
+  let spinInterval = null;
+
+  const wordEl = document.getElementById('word');
+  const spinBtn = document.getElementById('btn');
+
+  function spin() {
+    if (spinning) return;
+    spinning = true;
+
+    if (spinInterval) {
+      clearInterval(spinInterval);
+      spinInterval = null;
     }
-  </script>
+
+    // start audio on first user gesture
+    if (!musicStarted) {
+      audioEl.play().then(() => {
+        topLeftDiv.classList.add('visible');
+      }).catch(() => {});
+      const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+      if (!isMobile) {
+        rainEl.volume = 0.008;
+        rainEl.play().catch(() => {});
+      }
+      musicStarted = true;
+    }
+
+    spinBtn.classList.add('running');
+    wordEl.classList.add('spinning');
+
+    const pool = words.filter(w => w !== currentWord);
+    const nextWord = pool[Math.floor(Math.random() * pool.length)];
+    const shuffled = [...pool].sort(() => Math.random() - 0.5);
+    let ticks = 0;
+    const totalTicks = 20 + Math.floor(Math.random() * 10);
+
+    spinInterval = setInterval(() => {
+      wordEl.textContent = shuffled[ticks % shuffled.length];
+      ticks++;
+      if (ticks >= totalTicks) {
+        clearInterval(spinInterval);
+        spinInterval = null;
+        wordEl.textContent = nextWord;
+        currentWord = nextWord;
+        wordEl.classList.remove('spinning');
+        spinBtn.classList.remove('running');
+        spinning = false;
+      }
+    }, 70);
+  }
+
+  // attach event (inline onclick was present but also ensures duplicate safety)
+  spinBtn.addEventListener('click', spin);
+
+  // small improvement: disable spin if already running and ensure no double initialization
+  // also ensure that the initial 'season' doesn't block music start: user must click again
+  // optionally preload metadata? fine.
+
+  // Safety: on any user tap to document, if audio not started and user clicks 'again' it will start.
+  // also prevent any default action on button if needed.
+  // Safari landscape overlap fix already applied by CSS and flexible wrap.
+  // Additionally, ensure that brand does not overlay controls with large padding
+  window.addEventListener('resize', () => {
+    // fix any weird canvas redraw
+    resizeCanvas();
+  });
+
+  // small extra: because the body can scroll now, keep vignette and rain fixed, perfect
+  // block focus on dev tools again (duplicate of earlier is fine)
+  // also ensure that long-press on button does not open inspect / context
+  spinBtn.addEventListener('contextmenu', (e) => e.preventDefault());
+  document.querySelector('.who-link')?.addEventListener('contextmenu', (e) => e.preventDefault());
+  
+  // final fix: if Safari has weird repaint after orientation, gently refresh rain streaks
+  window.addEventListener('orientationchange', () => {
+    setTimeout(() => {
+      resizeCanvas();
+      // reinitialize streaks to avoid out-of-bounds
+      for (let i = 0; i < streaks.length; i++) {
+        if (streaks[i].y > H + 200 || streaks[i].x < -100) {
+          Object.assign(streaks[i], newStreak(false));
+        }
+      }
+    }, 30);
+  });
+</script>
 </body>
 </html>
