@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>who — rapture</title>
-  <link href="https:
+  <link href="https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Cormorant+Garamond:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -28,7 +28,7 @@
       transition: opacity 0.55s ease;
     }
 
-    
+    /* ── video background ── */
     .vid-bg {
       position: fixed;
       inset: 0;
@@ -67,7 +67,7 @@
       background: linear-gradient(180deg, #04070f 0%, #060d1a 40%, #0a1422 70%, #050b16 100%);
     }
 
-    
+    /* ── overlays ── */
     .vignette {
       position: fixed;
       inset: 0;
@@ -89,7 +89,7 @@
       );
     }
 
-    
+    /* ── back link ── */
     .back-link {
       position: fixed;
       top: 1.4rem;
@@ -113,12 +113,12 @@
 
     .back-link:hover {
       color: rgba(155,185,225,0.55);
-      border-bottom-color: rgba(140,175,220,0.2);
+      border-bottom-color: rgba(140,175,220,0.38);
     }
 
     @keyframes fadeInUI { to { opacity: 1; } }
 
-    
+    /* ── title ── */
     .title {
       position: fixed;
       top: 1.35rem;
@@ -136,7 +136,7 @@
       animation-delay: 0.6s;
     }
 
-    
+    /* ── branding ── */
     .branding {
       position: fixed;
       bottom: 1.4rem;
@@ -153,7 +153,7 @@
       user-select: none;
     }
 
-    
+    /* ── profile row ── */
     .wrap {
       position: relative;
       z-index: 10;
@@ -248,7 +248,7 @@
       -webkit-user-select: none;
     }
 
-    
+    /* desktop / tablet default name style */
     .avatar-name {
       font-family: 'Cormorant Garamond', serif;
       font-size: 1rem;
@@ -267,7 +267,7 @@
       box-sizing: border-box;
     }
 
-    
+    /* player popup base */
     .player-popup {
       position: fixed;
       z-index: 100;
@@ -453,7 +453,7 @@
       cursor: pointer;
     }
 
-    
+    /* Tablet landscape */
     @media (min-width: 681px) and (max-width: 1100px) {
       .avatar {
         width: clamp(60px, 9vw, 100px) !important;
@@ -468,7 +468,7 @@
       }
     }
 
-    
+    /* ── MOBILE PORTRAIT: names stay on ONE LINE, boxes moved HIGHER ── */
     @media (max-width: 680px) {
       .wrap {
         padding: 5rem 1rem 1.8rem;
@@ -517,7 +517,7 @@
         object-fit: cover !important;
       }
 
-      
+      /* names always single line, never break */
       .avatar-name {
         white-space: nowrap !important;
         overflow: visible !important;
@@ -531,7 +531,7 @@
         line-height: 1.2;
       }
 
-      
+      /* bottom sheet player on mobile */
       .player-popup {
         width: 100% !important;
         max-width: 100% !important;
@@ -554,7 +554,7 @@
       }
     }
 
-    
+    /* Phone landscape: names one line, smaller font */
     @media (max-height: 500px) and (orientation: landscape) {
       .wrap {
         padding: 2rem 0.8rem 1.4rem;
@@ -652,20 +652,11 @@
     }
   </style>
   <script>
+    // history.replaceState disabled for iframe compatibility
 
-    history.replaceState(null, '', '/');
+    // Redirect logic disabled for iframe/preview compatibility
 
-    (function() {
-      const navEntry = performance.getEntriesByType?.('navigation')[0];
-      if (navEntry && navEntry.type === 'reload') {
-        window.location.href = '/';
-        return;
-      }
-      if (document.referrer === '' && window.location.pathname !== '/') {
-        window.location.href = '/';
-      }
-    })();
-
+    // Disable right-click and devtools shortcuts
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'F12') { e.preventDefault(); return; }
@@ -679,51 +670,51 @@
   <!-- video bg -->
   <div class="vid-bg">
     <video id="bgVid" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disableRemotePlayback preload="metadata">
-      <source src="https:
-      <source src="https:
+      <source src="https://igotyou.lol/video/background.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4" type="video/mp4">
     </video>
   </div>
   <div class="fog"></div>
   <div class="vignette"></div>
 
   <!-- UI chrome -->
-  <a class="back-link" id="backLink" href="https:
+  <a class="back-link" id="backLink" href="https://igotyou.lol">back</a>
   <div class="title">who</div>
   <div class="branding">rapture®</div>
 
   <!-- Audio sources -->
-  <audio id="trackAudio" loop><source src="https:
-  <audio id="trackAudio2" loop><source src="https:
-  <audio id="trackAudio3" loop><source src="https:
-  <audio id="trackAudio4" loop><source src="https:
-  <audio id="trackAudio5" loop><source src="https:
-  <audio id="trackAudio6" loop><source src="https:
-  <audio id="trackAudio7" loop><source src="https:
+  <audio id="trackAudio" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/rion.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio2" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/pprojekkt.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio3" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/casta.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio4" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/avmeredy.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio5" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/question.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio6" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/kwk.mp3" type="audio/mpeg"></audio>
+  <audio id="trackAudio7" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/eyhoc.mp3" type="audio/mpeg"></audio>
 
   <!-- Popups (all 7) -->
-  <div class="player-popup hidden" id="playerPopup"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup2"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup3"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup4"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup5"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup6"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
-  <div class="player-popup hidden" id="playerPopup7"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https:
+  <div class="player-popup hidden" id="playerPopup"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="art"><div class="popup-info"><div class="popup-title">kickflip</div><div class="popup-artist">maajins</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent">0:00</span><span class="progress-time" id="timeDuration">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn"><svg id="iconPlay" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup2"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="art"><div class="popup-info"><div class="popup-title">a star called the sun</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack2"><div class="progress-fill" id="progressFill2"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent2">0:00</span><span class="progress-time" id="timeDuration2">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn2"><svg id="iconPlay2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause2" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider2"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup3"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="art"><div class="popup-info"><div class="popup-title">addicted</div><div class="popup-artist">osamason</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack3"><div class="progress-fill" id="progressFill3"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent3">0:00</span><span class="progress-time" id="timeDuration3">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn3"><svg id="iconPlay3" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause3" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider3"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup4"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="art"><div class="popup-info"><div class="popup-title">yesterday</div><div class="popup-artist">the beatles</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack4"><div class="progress-fill" id="progressFill4"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent4">0:00</span><span class="progress-time" id="timeDuration4">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn4"><svg id="iconPlay4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause4" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider4"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup5"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="art"><div class="popup-info"><div class="popup-title">the star</div><div class="popup-artist">kino</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack5"><div class="progress-fill" id="progressFill5"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent5">0:00</span><span class="progress-time" id="timeDuration5">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn5"><svg id="iconPlay5" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause5" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider5"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup6"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="art"><div class="popup-info"><div class="popup-title">nothing else matters</div><div class="popup-artist">metallica</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack6"><div class="progress-fill" id="progressFill6"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent6">0:00</span><span class="progress-time" id="timeDuration6">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn6"><svg id="iconPlay6" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause6" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider6"></div></div></div>
+  <div class="player-popup hidden" id="playerPopup7"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="art"><div class="popup-info"><div class="popup-title">my way</div><div class="popup-artist">frank sinatra</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack7"><div class="progress-fill" id="progressFill7"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent7">0:00</span><span class="progress-time" id="timeDuration7">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn7"><svg id="iconPlay7" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause7" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider7"></div></div></div>
 
   <!-- Profiles -->
   <div class="wrap">
     <div class="row">
-      <div class="profile" id="profileUnki"><div class="avatar" id="avatarUnki"><img src="https:
-      <div class="profile" id="profilePachelbel"><div class="avatar" id="avatarPachelbel"><img src="https:
-      <div class="profile" id="profileKino"><div class="avatar" id="avatarKino"><img src="https:
-      <div class="profile" id="profileMid"><div class="avatar" id="avatarMid"><img src="https:
-      <div class="profile" id="profileSkai"><div class="avatar" id="avatarSkai"><img src="https:
-      <div class="profile" id="profileMetallica"><div class="avatar" id="avatarMetallica"><img src="https:
-      <div class="profile" id="profileSinatra"><div class="avatar" id="avatarSinatra"><img src="https:
+      <div class="profile" id="profileUnki"><div class="avatar" id="avatarUnki"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/5.png" alt="pfp"></div><div class="avatar-name">reb</div></div>
+      <div class="profile" id="profilePachelbel"><div class="avatar" id="avatarPachelbel"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/4.jpg" alt="pfp"></div><div class="avatar-name">avmeredy</div></div>
+      <div class="profile" id="profileKino"><div class="avatar" id="avatarKino"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/2.png" alt="pfp"></div><div class="avatar-name">pprojekkt</div></div>
+      <div class="profile" id="profileMid"><div class="avatar" id="avatarMid"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="pfp"></div><div class="avatar-name">rio</div></div>
+      <div class="profile" id="profileSkai"><div class="avatar" id="avatarSkai"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/3.jpg" alt="pfp"></div><div class="avatar-name">casta</div></div>
+      <div class="profile" id="profileMetallica"><div class="avatar" id="avatarMetallica"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/6.jpg" alt="pfp"></div><div class="avatar-name">kwk</div></div>
+      <div class="profile" id="profileSinatra"><div class="avatar" id="avatarSinatra"><img src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/7.png" alt="pfp"></div><div class="avatar-name">eyhoc</div></div>
     </div>
   </div>
 
   <script>
-
+    // Video & autoplay robust
     const bgVid = document.getElementById('bgVid');
     bgVid.setAttribute('playsinline', '');
     bgVid.setAttribute('webkit-playsinline', '');
@@ -733,13 +724,15 @@
     bgVid.load(); tryPlayVid();
     document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
     document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
-    function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https:
+    function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4'; bgVid.load(); tryPlayVid(); }
     bgVid.addEventListener('error', tryFallback, { once: true });
     
 
+
+    // Helper: format time
     function fmt(s) { if (!isFinite(s)) return '—'; return `${Math.floor(s / 60)}:${Math.floor(s % 60).toString().padStart(2, '0')}`; }
     
-
+    // ---------- DESKTOP POPUP POSITIONING ----------
     function isMobile() { return window.innerWidth <= 680; }
     function isLandscapeMobile() { return window.innerHeight <= 500 && window.innerWidth > window.innerHeight; }
     
@@ -760,7 +753,7 @@
       popupEl.style.left = left + 'px';
     }
     
-
+    // ---- Audio and popup management for all 7 players ----
     const playersData = [
       { audioId: 'trackAudio', popupId: 'playerPopup', avatarId: 'avatarMid', playBtnId: 'playPauseBtn', iconPlayId: 'iconPlay', iconPauseId: 'iconPause', fillId: 'progressFill', curId: 'timeCurrent', durId: 'timeDuration', trackId: 'progressTrack', volId: 'volSlider' },
       { audioId: 'trackAudio2', popupId: 'playerPopup2', avatarId: 'avatarKino', playBtnId: 'playPauseBtn2', iconPlayId: 'iconPlay2', iconPauseId: 'iconPause2', fillId: 'progressFill2', curId: 'timeCurrent2', durId: 'timeDuration2', trackId: 'progressTrack2', volId: 'volSlider2' },
@@ -776,7 +769,7 @@
     const popups = playersData.map(p => document.getElementById(p.popupId));
     const avatars = playersData.map(p => document.getElementById(p.avatarId));
     
-
+    // Helper: pause all except given audio
     function pauseAllExcept(keepAudio) {
       audios.forEach((aud, idx) => {
         if (aud !== keepAudio && !aud.paused) {
@@ -788,7 +781,7 @@
       });
     }
     
-
+    // Initialize each player
     playersData.forEach((data, idx) => {
       const audio = audios[idx];
       const popup = popups[idx];
@@ -827,7 +820,7 @@
         track.addEventListener('click', e => { const rect = track.getBoundingClientRect(); audio.currentTime = ((e.clientX - rect.left) / rect.width) * audio.duration; });
       }
       
-
+      // Popup toggle with desktop positioning
       if (avatar && popup) {
         avatar.addEventListener('click', (e) => {
           e.stopPropagation();
@@ -853,7 +846,7 @@
       }
     });
     
-
+    // Global click to close popups
     document.addEventListener('click', (e) => {
       for (let i = 0; i < popups.length; i++) {
         const pop = popups[i];
@@ -866,7 +859,7 @@
     });
     popups.forEach(pop => { if (pop) pop.addEventListener('click', e => e.stopPropagation()); });
     
-
+    // Reposition popups on resize (desktop)
     window.addEventListener('resize', () => {
       if (!isMobile() && !isLandscapeMobile()) {
         for (let i = 0; i < popups.length; i++) {
