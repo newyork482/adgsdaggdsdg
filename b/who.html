@@ -13,7 +13,7 @@
       width: 100%;
       height: 100%;
       overflow: hidden;
-      background: #020408;
+      background: #040810;
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
@@ -52,7 +52,7 @@
       min-height: 100%;
       object-fit: cover;
       object-position: center bottom;
-      filter: brightness(0.82) contrast(1.05);
+      filter: brightness(0.6) contrast(1.0);
       pointer-events: none;
       background: transparent;
       -webkit-media-controls: none;
@@ -69,7 +69,7 @@
     }
 
     .vid-bg {
-      background: linear-gradient(180deg, #04070f 0%, #060d1a 40%, #0a1422 70%, #050b16 100%);
+      background: linear-gradient(180deg, #06101e 0%, #081525 40%, #0a1c30 60%, #060f1a 80%, #020810 100%);
     }
 
     /* ── overlays ── */
@@ -78,7 +78,7 @@
       inset: 0;
       z-index: 1;
       pointer-events: none;
-      background: radial-gradient(ellipse at 50% 55%, transparent 25%, rgba(1,2,6,0.65) 100%);
+      background: radial-gradient(ellipse at 50% 55%, rgba(2,5,16,0.25) 20%, rgba(2,5,16,0.72) 100%);
     }
 
     .fog {
@@ -87,9 +87,9 @@
       z-index: 1;
       pointer-events: none;
       background: linear-gradient(180deg,
-        rgba(2,4,8,0.72) 0%,
-        rgba(2,4,8,0.08) 30%,
-        transparent 55%,
+        rgba(4,8,22,0.35) 0%,
+        rgba(4,10,22,0.05) 25%,
+        transparent 50%,
         transparent 100%
       );
     }
@@ -105,7 +105,7 @@
       font-weight: 400;
       letter-spacing: 0.22em;
       text-transform: lowercase;
-      color: rgba(140,175,220,0.35);
+      color: rgba(190,215,245,0.65);
       text-decoration: none;
       border-bottom: 1px solid transparent;
       padding: 0.2rem 0.15rem;
@@ -117,8 +117,8 @@
     }
 
     .back-link:hover {
-      color: rgba(155,185,225,0.55);
-      border-bottom-color: rgba(140,175,220,0.38);
+      color: rgba(215,232,255,0.9);
+      border-bottom-color: rgba(180,205,245,0.45);
     }
 
     @keyframes fadeInUI { to { opacity: 1; } }
@@ -134,7 +134,7 @@
       font-style: italic;
       font-size: 1rem;
       letter-spacing: 0.18em;
-      color: rgba(140,170,210,0.25);
+      color: rgba(190,215,245,0.60);
       white-space: nowrap;
       opacity: 0;
       animation: fadeInUI 2s ease forwards;
@@ -152,7 +152,7 @@
       font-size: 0.92rem;
       font-weight: 400;
       letter-spacing: 0.26em;
-      color: rgba(110,145,195,0.4);
+      color: rgba(170,200,240,0.28);
       text-transform: lowercase;
       white-space: nowrap;
       user-select: none;
@@ -218,8 +218,8 @@
       min-width: clamp(48px, 13vw, 130px);
       min-height: clamp(48px, 13vw, 130px);
       border-radius: 4px;
-      border: 1px solid rgba(100,145,210,0.28);
-      background: rgba(4,8,20,0.55);
+      border: 1px solid rgba(80,120,190,0.28);
+      background: rgba(3,6,18,0.55);
       overflow: hidden;
       cursor: pointer;
       transition: border-color 0.3s, box-shadow 0.3s, transform 0.2s;
@@ -230,8 +230,8 @@
     }
 
     .avatar:hover {
-      border-color: rgba(130,175,235,0.58);
-      box-shadow: 0 0 24px rgba(80,130,220,0.18);
+      border-color: rgba(110,155,225,0.55);
+      box-shadow: 0 0 24px rgba(60,105,210,0.18);
       transform: translateY(-2px);
     }
 
@@ -258,7 +258,7 @@
       font-size: 1rem;
       font-weight: 700;
       letter-spacing: 0.18em;
-      color: rgba(150,180,220,0.5);
+      color: rgba(210,230,255,0.68);
       text-align: center;
       text-transform: lowercase;
       user-select: none;
@@ -276,8 +276,8 @@
       position: fixed;
       z-index: 100;
       width: 260px;
-      background: rgba(6, 4, 2, 0.93);
-      border: 1px solid rgba(100,145,210,0.18);
+      background: rgba(3, 5, 14, 0.93);
+      border: 1px solid rgba(80,120,190,0.18);
       border-radius: 6px;
       backdrop-filter: blur(22px);
       padding: 1.2rem;
@@ -314,7 +314,7 @@
       border-radius: 3px;
       object-fit: cover;
       flex-shrink: 0;
-      border: 1px solid rgba(100,145,210,0.2);
+      border: 1px solid rgba(80,120,190,0.2);
     }
 
     .popup-info {
@@ -328,7 +328,7 @@
       font-family: 'IM Fell English', serif;
       font-style: italic;
       font-size: 0.9rem;
-      color: rgba(170,195,230,0.6);
+      color: rgba(200,220,248,0.85);
       letter-spacing: 0.04em;
       white-space: nowrap;
       overflow: hidden;
@@ -340,7 +340,7 @@
       font-size: 0.7rem;
       font-weight: 400;
       letter-spacing: 0.16em;
-      color: rgba(100,135,185,0.4);
+      color: rgba(150,180,225,0.6);
       text-transform: lowercase;
     }
 
@@ -353,19 +353,19 @@
     .progress-track {
       width: 100%;
       height: 2px;
-      background: rgba(100,145,210,0.12);
+      background: rgba(80,120,190,0.12);
       border-radius: 2px;
       cursor: pointer;
       position: relative;
     }
 
     .progress-track:hover .progress-fill {
-      background: rgba(155,195,245,0.85);
+      background: rgba(140,180,240,0.85);
     }
 
     .progress-fill {
       height: 100%;
-      background: rgba(100,145,210,0.55);
+      background: rgba(80,120,190,0.55);
       border-radius: 2px;
       width: 0%;
       transition: width 0.25s linear, background 0.2s;
@@ -395,7 +395,7 @@
       border: none;
       cursor: pointer;
       padding: 0.35rem;
-      color: rgba(120,155,205,0.4);
+      color: rgba(170,200,240,0.65);
       transition: color 0.2s, transform 0.15s;
       display: flex;
       align-items: center;
@@ -403,7 +403,7 @@
     }
 
     .ctrl-btn:hover {
-      color: rgba(160,190,230,0.65);
+      color: rgba(140,175,230,0.65);
       transform: scale(1.12);
     }
 
@@ -427,7 +427,7 @@
       appearance: none;
       flex: 1;
       height: 2px;
-      background: rgba(100,145,210,0.12);
+      background: rgba(80,120,190,0.12);
       outline: none;
       border: none;
       border-radius: 2px;
@@ -439,20 +439,20 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(120,165,225,0.75);
+      background: rgba(100,145,210,0.75);
       cursor: pointer;
       transition: background 0.2s;
     }
 
     .vol-slider::-webkit-slider-thumb:hover {
-      background: rgba(130,170,220,0.6);
+      background: rgba(120,158,218,0.6);
     }
 
     .vol-slider::-moz-range-thumb {
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: rgba(120,165,225,0.75);
+      background: rgba(100,145,210,0.75);
       border: none;
       cursor: pointer;
     }
@@ -677,8 +677,8 @@
   <!-- video bg -->
   <div class="vid-bg">
     <video id="bgVid" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disableRemotePlayback preload="metadata">
-      <source src="https://igotyou.lol/video/background.mp4" type="video/mp4">
-      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4" type="video/mp4">
+      <source src="/video/who.mp4" type="video/mp4">
+      <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/who.mp4" type="video/mp4">
     </video>
   </div>
   <div class="fog"></div>
@@ -695,6 +695,7 @@
   <audio id="trackAudio4" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/avmeredy.mp3" type="audio/mpeg"></audio>
   <audio id="trackAudio5" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/question.mp3" type="audio/mpeg"></audio>
   <audio id="trackAudio6" loop><source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/music/kwk.mp3" type="audio/mpeg"></audio>
+  <audio id="whoNightSounds" loop preload="auto"><source src="https://assets.mixkit.co/active_storage/sfx/1153/1153-preview.mp3" type="audio/mpeg"></audio>
 
   <!-- Popups (all 7) -->
   <div class="player-popup hidden" id="playerPopup"><div class="popup-inner"><div class="popup-top"><img class="popup-art" src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/pictures/1.jpg" alt="art"><div class="popup-info"><div class="popup-title">margiela steppin</div><div class="popup-artist">nine vicious</div></div></div><div class="popup-progress"><div class="progress-track" id="progressTrack"><div class="progress-fill" id="progressFill"></div></div><div class="progress-times"><span class="progress-time" id="timeCurrent">0:00</span><span class="progress-time" id="timeDuration">—</span></div></div><div class="popup-controls"><button class="ctrl-btn" id="playPauseBtn"><svg id="iconPlay" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg><svg id="iconPause" width="22" height="22" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg></button></div><div class="popup-vol"><span class="vol-label">vol</span><input class="vol-slider" type="range" min="0" max="1" step="0.01" value="0.8" id="volSlider"></div></div></div>
@@ -725,8 +726,20 @@
     bgVid.load(); tryPlayVid();
     document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
     document.addEventListener('click', () => { if (bgVid.paused) tryPlayVid(); }, { once: true });
-    function tryFallback() { if (bgVid.src && bgVid.src.includes('github')) return; bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/background.mp4'; bgVid.load(); tryPlayVid(); }
+    function tryFallback() { bgVid.src = 'https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/who.mp4'; bgVid.load(); tryPlayVid(); }
     bgVid.addEventListener('error', tryFallback, { once: true });
+
+    // Night ambience — desktop only
+    const isMobileWho = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+    if (!isMobileWho) {
+      const whoNight = document.getElementById('whoNightSounds');
+      whoNight.volume = 0.018;
+      whoNight.loop = true;
+      function playWhoNight() { whoNight.play().catch(() => {}); }
+      playWhoNight();
+      document.addEventListener('mousemove', playWhoNight, { once: true });
+      document.addEventListener('click', playWhoNight, { once: true });
+    }
     
 
 
