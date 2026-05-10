@@ -19,7 +19,7 @@
     html {
       overflow: hidden;
       height: 100%;
-      background: #0e1218;
+      background: #060d10;
     }
 
     body {
@@ -41,20 +41,31 @@
       position: fixed;
       inset: 0;
       z-index: 0;
-      background: linear-gradient(180deg, #080c12 0%, #0e1520 60%, #111a24 100%);
+      background: linear-gradient(180deg, #030a0e 0%, #061218 35%, #071a16 65%, #041210 100%);
+      overflow: hidden;
     }
 
-    canvas {
-      position: fixed;
-      inset: 0;
-      z-index: 1;
+    .outside video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      filter: brightness(1.1) contrast(1.0);
       pointer-events: none;
     }
+
+    .outside video::-webkit-media-controls,
+    .outside video::-webkit-media-controls-enclosure,
+    .outside video::-webkit-media-controls-overlay-play-button,
+    .outside video::-webkit-media-controls-panel { display: none !important; opacity: 0 !important; }
 
     .vignette {
       position: fixed;
       inset: 0;
-      background: radial-gradient(ellipse at 50% 40%, transparent 25%, #080c12 100%);
+      background: radial-gradient(ellipse at 50% 40%, transparent 40%, rgba(3,10,14,0.4) 100%);
       pointer-events: none;
       z-index: 2;
     }
@@ -70,7 +81,7 @@
       font-weight: 400;
       letter-spacing: 0.22em;
       text-transform: lowercase;
-      color: rgba(100,130,155,0.7);
+      color: rgba(200,230,220,0.7);
       text-decoration: none;
       border-bottom: 1px solid transparent;
       padding: 0.2rem 0.15rem;
@@ -82,8 +93,8 @@
     }
 
     .who-link:hover {
-      color: rgba(150,185,215,0.88);
-      border-bottom-color: rgba(120,160,200,0.35);
+      color: rgba(220,245,238,0.95);
+      border-bottom-color: rgba(180,220,210,0.4);
     }
 
     @keyframes fadeInUI {
@@ -114,7 +125,7 @@
       width: 5px;
       height: 5px;
       border-radius: 50%;
-      background: #607080;
+      background: #3a7060;
       animation: pulse 3s ease-in-out infinite;
       flex-shrink: 0;
     }
@@ -128,9 +139,9 @@
       font-size: 0.75rem;
       font-weight: 400;
       letter-spacing: 0.13em;
-      color: #5a7080;
+      color: rgba(200,230,220,0.38);
     }
-    .np-title { color: #7a9ab0; }
+    .np-title { color: rgba(200,230,220,0.68); }
 
     .vol-row {
       display: flex;
@@ -144,7 +155,7 @@
       font-size: 0.68rem;
       font-weight: 400;
       letter-spacing: 0.14em;
-      color: #4a6070;
+      color: rgba(190,220,210,0.6);
       text-transform: lowercase;
       user-select: none;
     }
@@ -164,14 +175,14 @@
       left: 0;
       right: 0;
       height: 2px;
-      background: #2e4050;
+      background: #152e28;
       border-radius: 2px;
     }
     .vol-track-fill {
       position: absolute;
       left: 0;
       height: 2px;
-      background: #607080;
+      background: #3a7060;
       border-radius: 2px;
     }
     .vol-thumb {
@@ -179,11 +190,11 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #607080;
+      background: #3a7060;
       transform: translateX(-50%);
       transition: background 0.2s;
     }
-    .vol-track:hover .vol-thumb { background: rgba(160,200,240,0.8); }
+    .vol-track:hover .vol-thumb { background: rgba(100,200,170,0.8); }
 
     /* main content – scrollable area */
     .wrap {
@@ -211,7 +222,7 @@
       font-family: 'IM Fell English', serif;
       font-size: clamp(2rem, 6vw, 3.6rem);
       font-weight: 400;
-      color: rgba(200,215,235,0.75);
+      color: rgba(190,215,208,0.62);
       letter-spacing: 0.04em;
     }
 
@@ -228,7 +239,7 @@
       font-style: italic;
       font-size: clamp(2rem, 6vw, 3.6rem);
       font-weight: 400;
-      color: rgba(160,200,240,0.9);
+      color: rgba(140,200,185,0.62);
       letter-spacing: 0.04em;
       white-space: nowrap;
     }
@@ -246,14 +257,14 @@
     .divider {
       width: 36px;
       height: 1px;
-      background: rgba(100,140,180,0.18);
+      background: rgba(80,160,130,0.18);
     }
 
     .spin-btn {
       background: transparent;
       border: none;
-      border-bottom: 1px solid rgba(100,140,180,0.25);
-      color: rgba(100,140,180,0.55);
+      border-bottom: 1px solid rgba(180,220,210,0.35);
+      color: rgba(190,225,215,0.72);
       font-family: 'Cormorant Garamond', serif;
       font-size: 1.15rem;
       font-weight: 400;
@@ -265,14 +276,14 @@
     }
 
     .spin-btn:hover {
-      color: rgba(160,200,240,0.85);
-      border-color: rgba(120,160,200,0.45);
+      color: rgba(220,248,240,0.95);
+      border-color: rgba(180,230,215,0.5);
     }
 
     .spin-btn.running {
       pointer-events: none;
-      color: rgba(60,80,100,0.2);
-      border-color: rgba(60,80,100,0.1);
+      color: rgba(40,80,60,0.2);
+      border-color: rgba(40,80,60,0.1);
     }
 
     .branding {
@@ -285,7 +296,7 @@
       font-size: 0.92rem;
       font-weight: 400;
       letter-spacing: 0.26em;
-      color: #6a8fa8;
+      color: rgba(180,215,205,0.28);
       text-transform: lowercase;
       white-space: nowrap;
       user-select: none;
@@ -334,8 +345,12 @@
 </head>
 <body>
 
-<div class="outside"></div>
-<canvas id="c"></canvas>
+<div class="outside">
+  <video id="bgVid" autoplay muted loop playsinline webkit-playsinline x-webkit-airplay="deny" disableRemotePlayback preload="metadata">
+    <source src="/video/index.mp4" type="video/mp4">
+    <source src="https://raw.githubusercontent.com/newyork482/adgsdaggdsdg/main/video/index.mp4" type="video/mp4">
+  </video>
+</div>
 <div class="vignette"></div>
 
 <a class="who-link" id="whoLink" href="#">who</a>
@@ -360,8 +375,8 @@
 <audio id="audio" loop preload="auto">
   <source src="https://raw.githubusercontent.com/newyork482/igotyoulol/main/music/song.mp3" type="audio/mpeg">
 </audio>
-<audio id="rain" loop preload="auto">
-  <source src="https://assets.mixkit.co/active_storage/sfx/2515/2515-preview.mp3" type="audio/mpeg">
+<audio id="nightSounds" loop preload="auto">
+  <source src="https://assets.mixkit.co/active_storage/sfx/1153/1153-preview.mp3" type="audio/mpeg">
 </audio>
 
 <div class="wrap">
@@ -441,7 +456,7 @@
   // Audio + volume controls
   // ----------------------------------------------
   const audioEl = document.getElementById('audio');
-  const rainEl = document.getElementById('rain');
+  const nightSoundsEl = document.getElementById('nightSounds');
   const topLeftDiv = document.getElementById('topLeft');
 
   audioEl.volume = 0.8;
@@ -476,55 +491,6 @@
     setVol(e.touches[0].clientX);
   }, { passive: false });
   window.addEventListener('touchend', () => { touchDragging = false; });
-
-  // ----------------------------------------------
-  // Rain Canvas Effect
-  // ----------------------------------------------
-  const canvas = document.getElementById('c');
-  const ctx = canvas.getContext('2d');
-  let W, H;
-
-  function resizeCanvas() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
-  }
-  resizeCanvas();
-  window.addEventListener('resize', resizeCanvas);
-
-  function newStreak(scatter) {
-    const len = 15 + Math.random() * 35;
-    return {
-      x: Math.random() * (W + 60) - 30,
-      y: scatter ? Math.random() * H : -len,
-      len: len,
-      speed: 5 + Math.random() * 10,
-      alpha: 0.03 + Math.random() * 0.1,
-      width: 0.4 + Math.random() * 0.7,
-    };
-  }
-
-  const streaks = Array.from({ length: 140 }, () => newStreak(true));
-
-  function animateRain() {
-    ctx.clearRect(0, 0, W, H);
-    streaks.forEach(s => {
-      ctx.save();
-      ctx.globalAlpha = s.alpha;
-      ctx.strokeStyle = 'rgba(180,210,245,1)';
-      ctx.lineWidth = s.width;
-      ctx.lineCap = 'round';
-      ctx.beginPath();
-      ctx.moveTo(s.x, s.y);
-      ctx.lineTo(s.x - s.len * 0.12, s.y + s.len);
-      ctx.stroke();
-      ctx.restore();
-      s.y += s.speed;
-      s.x -= s.speed * 0.12;
-      if (s.y - s.len > H || s.x < -60) Object.assign(s, newStreak(false));
-    });
-    requestAnimationFrame(animateRain);
-  }
-  animateRain();
 
   // ----------------------------------------------
   // Word spinner logic (rapture filler)
@@ -574,11 +540,6 @@
       audioEl.play().then(() => {
         topLeftDiv.classList.add('visible');
       }).catch(() => {});
-      const isMobile = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
-      if (!isMobile) {
-        rainEl.volume = 0.008;
-        rainEl.play().catch(() => {});
-      }
       musicStarted = true;
     }
 
@@ -615,29 +576,39 @@
 
   // safety: on any user tap to document, if audio not started and user clicks 'again' it will start.
   // also prevent any default action on button if needed.
+  // Video background autoplay
+  const bgVid = document.getElementById('bgVid');
+  if (bgVid) {
+    bgVid.muted = true;
+    bgVid.controls = false;
+    function tryPlayBgVid() { bgVid.muted = true; const p = bgVid.play(); if (p !== undefined) p.catch(() => {}); }
+    bgVid.load(); tryPlayBgVid();
+    document.addEventListener('touchstart', () => { if (bgVid.paused) tryPlayBgVid(); }, { once: true });
+    document.addEventListener('click', () => { if (bgVid.paused) tryPlayBgVid(); }, { once: true });
+  }
+
+  // Night ambience — desktop only
+  const isMobileIndex = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
+  if (!isMobileIndex) {
+    nightSoundsEl.volume = 0.018;
+    nightSoundsEl.loop = true;
+    function playNight() { nightSoundsEl.play().catch(() => {}); }
+    playNight();
+    document.addEventListener('mousemove', playNight, { once: true });
+    document.addEventListener('click', playNight, { once: true });
+  }
+
   // Safari landscape overlap fix already applied by CSS and flexible wrap.
-  // additionally, ensure that brand does not overlay controls with large padding
   window.addEventListener('resize', () => {
-    // fix any weird canvas redraw
-    resizeCanvas();
+    // responsive layout
   });
 
-  // small extra: because the body can scroll now, keep vignette and rain fixed, perfect
-  // block focus on dev tools again (duplicate of earlier is fine)
-  // also ensure that long-press on button does not open inspect / context
   spinBtn.addEventListener('contextmenu', (e) => e.preventDefault());
   document.querySelector('.who-link')?.addEventListener('contextmenu', (e) => e.preventDefault());
   
-  // final fix: if Safari has weird repaint after orientation, gently refresh rain streaks
   window.addEventListener('orientationchange', () => {
     setTimeout(() => {
-      resizeCanvas();
-      // reinitialize streaks to avoid out-of-bounds
-      for (let i = 0; i < streaks.length; i++) {
-        if (streaks[i].y > H + 200 || streaks[i].x < -100) {
-          Object.assign(streaks[i], newStreak(false));
-        }
-      }
+      // layout refresh on orientation change
     }, 30);
   });
 </script>
