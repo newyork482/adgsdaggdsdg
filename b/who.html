@@ -657,12 +657,6 @@
     }
   </style>
   <script>
-    history.replaceState(null, '', '/');
-    (function() {
-      const navEntry = performance.getEntriesByType?.('navigation')[0];
-      if (navEntry && navEntry.type === 'reload') { window.location.href = '/'; return; }
-      if (document.referrer === '' && window.location.pathname !== '/') { window.location.href = '/'; }
-    })();
 
     // Disable right-click and devtools shortcuts
     document.addEventListener('contextmenu', function(e) { e.preventDefault(); });
