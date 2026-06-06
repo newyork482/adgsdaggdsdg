@@ -199,7 +199,7 @@
     }
     .vol-track:hover .vol-thumb { background: rgba(100,200,170,0.8); }
 
-    /* main content – scrollable area */
+    /* main content â€“ scrollable area */
     .wrap {
       position: relative;
       z-index: 5;
@@ -360,8 +360,7 @@
 
 <div class="top-left" id="topLeft">
   <div class="np-row">
-    <div class="np-dot"></div>
-    <div class="np-text">now playing &nbsp;<span class="np-title">yesterday — vs self</span></div>
+    <div class="np-text">now playing &nbsp;<span class="np-title">yesterday â€” vs self</span></div>
   </div>
   <div class="vol-row">
     <span class="vol-label">vol</span>
@@ -373,7 +372,7 @@
   </div>
 </div>
 
-<div class="branding">rapture®</div>
+<div class="branding">raptureÂ®</div>
 
 <audio id="audio" loop preload="auto">
   <source src="/music/song.mp3" type="audio/mpeg">
@@ -590,7 +589,7 @@
     document.addEventListener('click', () => { if (bgVid.paused) tryPlayBgVid(); }, { once: true });
   }
 
-  // Night ambience — desktop only
+  // Night ambience â€” desktop only
   const isMobileIndex = /Mobi|Android|iPhone|iPad/i.test(navigator.userAgent);
   if (!isMobileIndex) {
     nightSoundsEl.volume = 0.018;
